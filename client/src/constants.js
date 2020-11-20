@@ -13,6 +13,12 @@ const COLORS = {
 
   // light grey for background
   grey: "#EAEDEC",
+
+  // low stock
+  orange: 'orange',
+
+  // for when there's no stock
+  red: 'red',
 };
 
 export default COLORS;
