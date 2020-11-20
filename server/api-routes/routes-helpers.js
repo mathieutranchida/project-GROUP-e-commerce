@@ -1,3 +1,6 @@
+//Data imports
+const items = require("../data/items.json");
+
 //Error simulation constants
 const MAX_DELAY = 2000;
 const FAILURE_ODDS = 1;
@@ -25,7 +28,22 @@ const checkIfFound = (element, name) => {
   return true;
 };
 
+//Decrement quantity of purchased items in the database
+const decrementQuantity = (order) => {
+  //Loop through all purchased items
+  order.items.forEach((item) => {
+    const itemId = item._id;
+    const itemToDecrementIndex = items.findIndex((element) => {
+      console.log("ELEMENT: " + element._id);
+      console.log("ITEM:  " + itemId);
+      return element._id === itemId;
+    });
+    items[itemToDecrementIndex].numInStock -= item.quantity;
+  });
+};
+
 module.exports = {
   simulateProblems,
   checkIfFound,
+  decrementQuantity,
 };

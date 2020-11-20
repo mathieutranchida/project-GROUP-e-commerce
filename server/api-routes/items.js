@@ -1,6 +1,5 @@
 //Data Imports
 const items = require("../data/items.json");
-const companies = require("../data/companies.json");
 const { checkIfFound } = require("./routes-helpers");
 
 //Get all items
