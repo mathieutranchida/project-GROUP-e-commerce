@@ -4,6 +4,7 @@ import styled from "styled-components";
 import CartHeader from "./CartHeader";
 import OrderSummary from "./OrderSummary";
 import CartItem from "./CartItem";
+import PaymentModal from "./PaymentModal";
 
 const Cart = () => {
   // Remove when BE done
@@ -61,6 +62,7 @@ const Cart = () => {
                 return <CartItem article={article} key={article._id} />;
               })}
             </ArticleWrapper>
+            <PaymentModal cart={cart} />
           </Main>
           <Secondary>
             {/* Update OrderSummary when BE done */}
