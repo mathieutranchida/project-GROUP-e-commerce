@@ -2,11 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import COLORS from "../../constants";
 
-const PaymentModal = ({ cart }) => {
+const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
   return (
     <>
-      <BackgroundModal>
-        <ModalContainer>
+      <BackgroundModal modalOpen={modalOpen}>
+        <ModalContainer modalOpen={modalOpen}>
+          <ButtonContainer>
+            <CloseButton onClick={() => setModalOpen(false)}>✕</CloseButton>
+          </ButtonContainer>
           <ContentContainer>
             <Title>Order Checkout</Title>
             <OrderSummaryModal>
@@ -59,7 +62,7 @@ const PaymentModal = ({ cart }) => {
 };
 
 const BackgroundModal = styled.div`
-  display: flex;
+  display: ${(props) => (props.modalOpen ? "flex" : "none")};
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -72,8 +75,9 @@ const BackgroundModal = styled.div`
 `;
 
 const ModalContainer = styled.div`
+  display: ${(props) => (props.modalOpen ? "block" : "none")};
   width: 600px;
-  height: 500px;
+  height: 550px;
   background-color: white;
   overflow: scroll;
 `;
@@ -81,7 +85,7 @@ const ModalContainer = styled.div`
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 50px;
+  padding: 0px 50px 50px 50px;
 `;
 
 const Title = styled.h2`
@@ -147,10 +151,10 @@ const Input = styled.input`
 `;
 
 const ProceedPaymentButton = styled.button`
-    margin-top: 50px;
+  margin-top: 50px;
   background-color: ${COLORS.yellowgreen};
   border-style: solid;
-  border-color: ${COLORS.yellowgreen};
+  border-color: ${COLORS.yellowgreen}; 
   border-width: 1px;
   border-radius: 7px;
   height 50px;
@@ -167,6 +171,22 @@ const ProceedPaymentButton = styled.button`
       box-shadow: none;
 
   }
+`;
+
+const CloseButton = styled.button`
+  border-style: none;
+  background-color: white;
+  width: 50px;
+  cursor: pointer;
+  margin-top: 40px;
+  margin-right: 20px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 40px;
 `;
 
 export default PaymentModal;

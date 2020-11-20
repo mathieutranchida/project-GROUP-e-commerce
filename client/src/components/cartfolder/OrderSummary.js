@@ -4,7 +4,7 @@ import styled from "styled-components";
 // Add feature to change the single or plural for items with proper value (Commented out)
 // Add feature for total amount $$$
 
-const OrderSummary = () => {
+const OrderSummary = ({ modalOpen, setModalOpen }) => {
   return (
     <>
       <Wrapper>
@@ -14,7 +14,11 @@ const OrderSummary = () => {
             {cart.length > 1 && <Sub>Subtotal cart.length items:</Sub>} */}
           <Strong>$10.00</Strong>
         </SubTotalDiv>
-        <Button>Proceed to Checkout</Button>
+        <Button
+          onClick={() => (modalOpen ? setModalOpen(false) : setModalOpen(true))}
+        >
+          Proceed to Checkout
+        </Button>
       </Wrapper>
     </>
   );
