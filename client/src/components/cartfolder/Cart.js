@@ -4,8 +4,11 @@ import styled from "styled-components";
 import CartHeader from "./CartHeader";
 import OrderSummary from "./OrderSummary";
 import CartItem from "./CartItem";
+import PaymentModal from "./PaymentModal";
 
 const Cart = () => {
+  const [modalOpen, setModalOpen] = React.useState();
+
   // Remove when BE done
   const cart = [
     {
@@ -61,10 +64,15 @@ const Cart = () => {
                 return <CartItem article={article} key={article._id} />;
               })}
             </ArticleWrapper>
+            <PaymentModal
+              cart={cart}
+              modalOpen={modalOpen}
+              setModalOpen={setModalOpen}
+            />
           </Main>
           <Secondary>
             {/* Update OrderSummary when BE done */}
-            <OrderSummary />
+            <OrderSummary modalOpen={modalOpen} setModalOpen={setModalOpen} />
           </Secondary>
         </Wrapper>
       </Div>
