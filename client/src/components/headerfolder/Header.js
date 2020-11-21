@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import { Icon } from "react-icons-kit";
 import { androidMenu } from "react-icons-kit/ionicons/androidMenu";
+import Sidebar from './Sidebar';
 
 // Update items in cart when DB is done
 // Implement Search as a stretch
@@ -14,7 +15,8 @@ const Header = () => {
       <Wrapper>
         <Main>
           <div style={{ color: "white" }}>
-            <Icon icon={androidMenu} size={40} />
+            {/* <Icon icon={androidMenu} size={40} /> */}
+            <Sidebar/>
           </div>
           <Logo>
             <Link exact to="/">
