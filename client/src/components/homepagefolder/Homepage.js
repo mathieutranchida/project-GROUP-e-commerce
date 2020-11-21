@@ -1,33 +1,68 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 //rfce && rxr
 
 import COLORS from "../../constants";
-
-import items from "./items.json";
+import {
+  requestAllItems,
+  receiveAllItems,
+  receiveAllItemsError,
+} from "../../redux/actions";
 
 const Homepage = () => {
-  const itemsList = items.map((item) => {
-    const quantitiesMessage =
-      item.numInStock === 0 ? "Unavailable" : `In Stock: ${item.numInStock}`;
-    return (
-      <Item key={item._id}>
-        <Pic src={item.imageSrc} />
-        <ProductDetailArea>
-          <Name>{item.name}</Name>
-          <ProductDetail>
-            <span>{`Category: ${item.category}`}</span>
-            {<Stock qty={item.numInStock}>{quantitiesMessage}</Stock>}
-            <span>{`Price: ${item.price}`}</span>
-          </ProductDetail>
-          <PurchaseBtn>Purchase</PurchaseBtn>
-        </ProductDetailArea>
-      </Item>
-    );
-  });
+  let dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(requestAllItems());
+    fetch("/items", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch(receiveAllItems(data));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(receiveAllItemsError());
+      });
+  }, []);
+
+  const items = useSelector(
+    (state) => state.items.items && state.items.items.data
+  );
+  console.log(items);
+
   return (
     <>
-      <Wrapper>{itemsList}</Wrapper>
+      {items ? (
+        <Wrapper>
+          {items.map((item) => {
+            const quantitiesMessage =
+              item.numInStock === 0
+                ? "Unavailable"
+                : `In Stock: ${item.numInStock}`;
+            return (
+              <Item key={item._id}>
+                <Pic src={item.imageSrc} />
+                <ProductDetailArea>
+                  <Name>{item.name}</Name>
+                  <ProductDetail>
+                    <span>{`Category: ${item.category}`}</span>
+                    {<Stock qty={item.numInStock}>{quantitiesMessage}</Stock>}
+                    <span>{`Price: ${item.price}`}</span>
+                  </ProductDetail>
+                  <PurchaseBtn>Purchase</PurchaseBtn>
+                </ProductDetailArea>
+              </Item>
+            );
+          })}
+        </Wrapper>
+      ) : undefined}
     </>
   );
 };
