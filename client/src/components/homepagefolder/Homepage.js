@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 //rfce && rxr
 
+import history from "../../history";
 import COLORS from "../../constants";
 import {
   requestAllItems,
@@ -50,7 +51,22 @@ const Homepage = () => {
               <Item key={item._id}>
                 <Pic src={item.imageSrc} />
                 <ProductDetailArea>
-                  <Name>{item.name}</Name>
+                  <Name
+                    onClick={(ev) => {
+                      ev.stopPropagation();
+                      history.push(`/product/${item._id}`);
+                    }}
+                    tabIndex="0"
+                    aria-label="view detailed product page"
+                    onKeyDown={(ev) => {
+                      if (ev.key === "Enter") {
+                        ev.stopPropagation();
+                        history.push(`/product/${item._id}`);
+                      }
+                    }}
+                  >
+                    {item.name}
+                  </Name>
                   <ProductDetail>
                     <span>{`Category: ${item.category}`}</span>
                     {<Stock qty={item.numInStock}>{quantitiesMessage}</Stock>}
@@ -85,21 +101,22 @@ const Pic = styled.img`
 `;
 
 const PurchaseBtn = styled.button`
-  background: ${COLORS.yellowgreen};
-  border-radius: 10px;
+  padding: 10px 0px;
+  font-family: "Poppins", sans-serif;
   color: ${COLORS.white};
-  padding: 10px;
+  background-color: ${COLORS.yellowgreen};
+  border-radius: 5px;
   border: none;
-
-  :hover {
-    box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.75);
-  }
+  box-shadow: 2px 2px 10px rgba(161, 161, 161, 0.3);
+  cursor: pointer;
 `;
 
 const Name = styled.span`
   font-weight: 900;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 `;
 
 const ProductDetailArea = styled.div`
