@@ -52,15 +52,13 @@ const Homepage = () => {
                 <Pic src={item.imageSrc} />
                 <ProductDetailArea>
                   <Name
-                    onClick={(ev) => {
-                      ev.stopPropagation();
+                    onClick={() => {
                       history.push(`/product/${item._id}`);
                     }}
                     tabIndex="0"
                     aria-label="view detailed product page"
                     onKeyDown={(ev) => {
                       if (ev.key === "Enter") {
-                        ev.stopPropagation();
                         history.push(`/product/${item._id}`);
                       }
                     }}
