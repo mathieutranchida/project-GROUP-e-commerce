@@ -11,6 +11,7 @@ const useFetchAllItems = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(requestAllItems());
     fetch("/items", {
       method: "GET",
       headers: {
