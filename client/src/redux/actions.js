@@ -1,3 +1,4 @@
+// Fetch items for the main page
 export const requestAllItems = () => ({
   type: "REQUEST_ALL_ITEMS",
 });
@@ -11,6 +12,7 @@ export const receiveAllItemsError = () => ({
   type: "RECEIVE_ALL_ITEMS_ERROR",
 });
 
+// Fetch a single item for the product page (Not used yet - might be used in the future)
 export const requestSingleItem = () => ({
   type: "REQUEST_SINGLE_ITEM",
 });
