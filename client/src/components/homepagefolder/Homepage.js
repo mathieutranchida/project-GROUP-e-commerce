@@ -54,12 +54,14 @@ const Homepage = () => {
                   <Name
                     onClick={() => {
                       history.push(`/product/${item._id}`);
+                      document.location.reload();
                     }}
                     tabIndex="0"
                     aria-label="view detailed product page"
                     onKeyDown={(ev) => {
                       if (ev.key === "Enter") {
                         history.push(`/product/${item._id}`);
+                        document.location.reload();
                       }
                     }}
                   >
