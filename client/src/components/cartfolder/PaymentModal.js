@@ -14,21 +14,25 @@ const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
             <Title>Order Checkout</Title>
             <OrderSummaryModal>
               <SmallTitle>Order Summary</SmallTitle>
-              {cart.map((item) => {
+              {cart.items.map((item) => {
                 return (
                   <>
                     <Item>
-                      <ItemPicture src={item.imageSrc} />
-                      <ItemName>{item.name}</ItemName>
+                      <ItemPicture src={item.item.imageSrc} />
+                      <ItemName>{item.item.name}</ItemName>
                       <RightContainer>
-                        <Quantity>Quantity: {item.numInStock}</Quantity>
-                        <Price>Price: {item.price}</Price>
+                        <Quantity>Quantity: {item.quantity}</Quantity>
+                        <Price>{item.item.price}</Price>
                       </RightContainer>
                     </Item>
+
                     <Line />
                   </>
                 );
               })}
+              <TotalContainer>
+                <Total>Total: ${cart.totalPrice}</Total>
+              </TotalContainer>
             </OrderSummaryModal>
             <ContainerInfo>
               <SmallTitle>Customer Information</SmallTitle>
@@ -39,6 +43,7 @@ const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
               </LabelInput>
               <Input id="shipping-address" />
             </ContainerInfo>
+
             <Line />
             <ContainerInfo>
               <SmallTitle>Payment Information</SmallTitle>
@@ -187,6 +192,15 @@ const ButtonContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   height: 40px;
+`;
+
+const TotalContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Total = styled.h3`
+  font-weight: 800;
 `;
 
 export default PaymentModal;

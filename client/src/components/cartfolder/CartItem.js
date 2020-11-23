@@ -1,38 +1,34 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const CartItem = (article) => {
-  console.log(article);
+const CartItem = ({ itemObj }) => {
+  console.log(itemObj);
   return (
     <>
       <Wrapper>
         <MainWrapper>
-          <Image src={article.article.imageSrc} />
+          <Image src={itemObj.item.imageSrc} />
           <DetailsWrapper>
-            <Name>{article.article.name}</Name>
+            <Name>{itemObj.item.name}</Name>
             <StockWrapper>
-              {article.article.numInStock === 0 && (
-                <NoStock>Unavailable</NoStock>
+              {itemObj.item.numInStock === 0 && <NoStock>Unavailable</NoStock>}
+              {itemObj.item.numInStock < 5 && itemObj.item.numInStock > 0 && (
+                <LowStock>Low stock</LowStock>
               )}
-              {article.article.numInStock < 5 &&
-                article.article.numInStock > 0 && (
-                  <LowStock>Low stock</LowStock>
-                )}
-              {article.article.numInStock >= 5 && (
-                <HighStock>In stock</HighStock>
-              )}
+              {itemObj.item.numInStock >= 5 && <HighStock>In stock</HighStock>}
             </StockWrapper>
-            <SoldBy>Sold by: {article.article.companyId}</SoldBy>
+            <SoldBy>Sold by: {itemObj.item.companyId}</SoldBy>
             <BottomWrapper>
               <QuantityDiv>
                 <Quantity>Quantity:</Quantity>
-                <QuantityInput type="number" placeholder="1" />
+                <QuantityInput type="number" placeholder={itemObj.quantity} />
               </QuantityDiv>
               <Remove>Remove</Remove>
             </BottomWrapper>
           </DetailsWrapper>
         </MainWrapper>
-        <Price>{article.article.price}</Price>
+        <Price>{itemObj.item.price}</Price>
       </Wrapper>
     </>
   );

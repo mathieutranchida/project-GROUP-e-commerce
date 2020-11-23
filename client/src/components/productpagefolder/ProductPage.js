@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../redux/actions";
 
 const ProductPage = () => {
   const itemId = useParams();
   const [singleItem, setSingleItem] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetch(`/items/${itemId.id}`, {
@@ -33,6 +36,14 @@ const ProductPage = () => {
 
   if (singleItem !== null) {
     const item = singleItem.data;
+
+    const handleAddItemToServer = () => {
+      fetch("/cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(item),
+      }).then(() => dispatch(addToCart(item)));
+    };
     return (
       <>
         <Div>
@@ -69,7 +80,7 @@ const ProductPage = () => {
                 </DetailedInfoWrapper>
               </ProductDetailsWrapper>
             </Main>
-            <AddToCart>Add to cart</AddToCart>
+            <AddToCart onClick={handleAddItemToServer}>Add to cart</AddToCart>
           </Wrapper>
         </Div>
       </>
