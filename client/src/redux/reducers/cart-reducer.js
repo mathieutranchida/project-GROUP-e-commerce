@@ -29,7 +29,7 @@ export default function cartReducer(state = initialState, action) {
       return {
         ...state,
         numberOfItems: state.numberOfItems + 1,
-        items: [...state.items, action.item],
+        items: [...state.items, { item: action.item, quantity: 1 }],
       };
     default: {
       return state;

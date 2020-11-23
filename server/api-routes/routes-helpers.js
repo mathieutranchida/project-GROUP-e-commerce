@@ -45,10 +45,26 @@ const decrementQuantity = (order) => {
 
 //Increment number of items in cart
 const incrementCart = (item) => {
-  cart.items.push(item);
-  cart.number_of_items += 1;
-  const totalPrice = parseFloat(item.price.substring(1));
-  cart.total_price += totalPrice;
+  //Check if item is already in cart. If yes, increment its quantity, otherwise add new item to cart
+  const itemFound = cart.items.find((itemObj) => itemObj.item._id === item._id);
+  if (itemFound) {
+    cart.items.forEach((itemObj, index) => {
+      if (itemFound._id === itemObj._id) {
+        cart.items[index] = {
+          ...cart.items[index],
+          quantity: (cart.items[index].quantity += 1),
+        };
+        cart.number_of_items += 1;
+        const totalPrice = parseFloat(item.price.substring(1));
+        cart.total_price += totalPrice;
+      }
+    });
+  } else {
+    cart.items.push({ item: item, quantity: 1 });
+    cart.number_of_items += 1;
+    const totalPrice = parseFloat(item.price.substring(1));
+    cart.total_price += totalPrice;
+  }
 };
 
 module.exports = {

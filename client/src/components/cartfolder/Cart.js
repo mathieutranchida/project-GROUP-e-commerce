@@ -24,9 +24,12 @@ const Cart = () => {
               </HeaderSecDiv>
             </HeaderWrapper>
             <ArticleWrapper>
-              {cart.items.map((article, key) => {
-                return <CartItem article={article} key={article._id} />;
+              {cart.items.map((item) => {
+                return <CartItem itemObj={item} key={item.item._id} />;
               })}
+              <TotalContainer>
+                <Total>Total: ${cart.totalPrice}</Total>
+              </TotalContainer>
             </ArticleWrapper>
             <PaymentModal
               cart={cart}
@@ -90,5 +93,14 @@ const Article = styled.div``;
 const Price = styled.div``;
 
 const ArticleWrapper = styled.div``;
+
+const TotalContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Total = styled.h3`
+  font-weight: 800;
+`;
 
 export default Cart;
