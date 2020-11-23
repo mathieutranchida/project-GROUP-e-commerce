@@ -31,7 +31,13 @@ const Header = () => {
             Homepage
           </Link>
           <Link to="/cart">
-            <CartWrapper>
+            <CartWrapper
+              onClick={() =>
+                setTimeout(() => {
+                  window.location.reload();
+                }, 500)
+              }
+            >
               {/* Update here with cart length */}
               <ItemsInCart>3</ItemsInCart>
               <div>Cart</div>
