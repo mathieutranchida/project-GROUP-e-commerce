@@ -1,18 +1,18 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 // Add feature to change the single or plural for items with proper value (Commented out)
 // Add feature for total amount $$$
 
 const OrderSummary = ({ modalOpen, setModalOpen }) => {
+  const cart = useSelector((state) => state.cart);
   return (
     <>
       <Wrapper>
         <SubTotalDiv>
-          <Sub>Subtotal (1 item):</Sub>
-          {/* {cart.length === 1 && <Sub>Subtotal cart.length item:</Sub>}
-            {cart.length > 1 && <Sub>Subtotal cart.length items:</Sub>} */}
-          <Strong>$10.00</Strong>
+          <Sub>Subtotal ({cart.items.length} item):</Sub>
+          <Strong>${cart.totalPrice}</Strong>
         </SubTotalDiv>
         <Button
           onClick={() => (modalOpen ? setModalOpen(false) : setModalOpen(true))}

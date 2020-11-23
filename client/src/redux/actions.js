@@ -25,3 +25,22 @@ export const receiveSingleItem = (item) => ({
 export const receiveSingleItemError = () => ({
   type: "RECEIVE_SINGLE_ITEM_ERROR",
 });
+
+//Cart Actions
+export const requestCart = () => ({
+  type: "REQUEST_CART",
+});
+
+export const receiveCart = (cart) => ({
+  type: "RECEIVE_CART",
+  cart,
+});
+
+export const errorRequestCart = () => ({
+  type: "ERROR_REQUEST_CART",
+});
+
+export const addToCart = (item) => ({
+  type: "ADD_TO_CART",
+  item,
+});
