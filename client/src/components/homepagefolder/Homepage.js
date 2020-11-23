@@ -1,38 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 //rfce && rxr
 
 import history from "../../history";
 import COLORS from "../../constants";
-import {
-  requestAllItems,
-  receiveAllItems,
-  receiveAllItemsError,
-} from "../../redux/actions";
 
 const Homepage = () => {
-  let dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(requestAllItems());
-    fetch("/items", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application.json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        dispatch(receiveAllItems(data));
-      })
-      .catch((err) => {
-        console.log(err);
-        dispatch(receiveAllItemsError());
-      });
-  }, []);
-
   const items = useSelector(
     (state) => state.items.items && state.items.items.data
   );
@@ -54,12 +28,14 @@ const Homepage = () => {
                   <Name
                     onClick={() => {
                       history.push(`/product/${item._id}`);
+                      document.location.reload();
                     }}
                     tabIndex="0"
                     aria-label="view detailed product page"
                     onKeyDown={(ev) => {
                       if (ev.key === "Enter") {
                         history.push(`/product/${item._id}`);
+                        document.location.reload();
                       }
                     }}
                   >
