@@ -5,7 +5,7 @@ import {
   requestAllItems,
   receiveAllItems,
   receiveAllItemsError,
-} from "./redux/actions";
+} from "../redux/actions";
 
 const useFetchAllItems = () => {
   const dispatch = useDispatch();
