@@ -8,6 +8,7 @@ import PaymentModal from "./PaymentModal";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
+  // window.location.reload();
   const [modalOpen, setModalOpen] = React.useState();
   const cart = useSelector((state) => state.cart);
   return (
