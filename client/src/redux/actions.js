@@ -21,11 +21,19 @@ export const receiveSingleItem = (item) => ({
   type: "RECEIVE_SINGLE_ITEM",
   item,
 });
-
+// filter actions in the sidebar
 export const receiveSingleItemError = () => ({
   type: "RECEIVE_SINGLE_ITEM_ERROR",
 });
 
+export const filterItems = (items) => ({
+  type: "FILTER_ITEMS",
+  items,
+});
+
+export const showAllItems = () => ({
+  type: "SHOW_ALL_ITEMS",
+})
 //Cart Actions
 export const requestCart = () => ({
   type: "REQUEST_CART",
