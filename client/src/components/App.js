@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import GlobalStyles from "../GlobalStyles";
 import styled from "styled-components";
 
+import useFetchAllItems from "../useFetchAllItems";
 import Cart from "./cartfolder/Cart";
 import Footer from "./Footer";
 import Header from "./headerfolder/Header";
@@ -10,6 +11,7 @@ import Homepage from "./homepagefolder/Homepage";
 import ProductPage from "./productpagefolder/ProductPage";
 
 function App() {
+  useFetchAllItems();
   return (
     <>
       <BrowserRouter>

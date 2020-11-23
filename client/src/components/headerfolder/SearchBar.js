@@ -31,10 +31,15 @@ const SearchBarComponent = () => {
               onChange={(keyDown) => setValue(keyDown.target.value)}
               onKeyDown={(ev) => {
                 switch (ev.key) {
-                  //   case "Enter": {
-                  //     history.push(`/product/${item._id}`);
-                  //     return;
-                  //   }
+                  case "Enter": {
+                    if (suggestions[selectedSuggestionIndex]) {
+                      history.push(
+                        `/product/${suggestions[selectedSuggestionIndex]._id}`
+                      );
+                      document.location.reload();
+                    }
+                    return;
+                  }
                   case "ArrowUp": {
                     if (selectedSuggestionIndex > 0) {
                       ev.preventDefault();
@@ -52,11 +57,11 @@ const SearchBarComponent = () => {
                 }
               }}
             />
-            <SearchButton>Search</SearchButton>
+            <SearchButton onClick={() => setValue("")}>Clear</SearchButton>
           </WrapperInput>
           <WrapperSuggestions>
             {suggestions.length > 0 && (
-              <HiddenWrapperSuggestions>
+              <HiddenSuggestionList>
                 {suggestions.map((item, index) => {
                   const suggestionStart = item.name
                     .toLowerCase()
@@ -67,7 +72,7 @@ const SearchBarComponent = () => {
                   const secondHalf = item.name.slice(suggestionEnd);
 
                   return (
-                    <SuggestionsList
+                    <SuggestionItem
                       key={item._id}
                       onClick={() => {
                         history.push(`/product/${item._id}`);
@@ -94,10 +99,10 @@ const SearchBarComponent = () => {
                         {firstHalf}
                         <Prediction>{secondHalf}</Prediction>
                       </span>
-                    </SuggestionsList>
+                    </SuggestionItem>
                   );
                 })}
-              </HiddenWrapperSuggestions>
+              </HiddenSuggestionList>
             )}
           </WrapperSuggestions>
         </Wrapper>
@@ -106,16 +111,27 @@ const SearchBarComponent = () => {
   } else {
     return (
       <>
-        <Loading>Loading</Loading>
+        <Wrapper>
+          <WrapperInput>
+            <SearchBar
+              type="text"
+              value={value}
+              placeholder="Search an item..."
+              onChange={(keyDown) => setValue(keyDown.target.value)}
+            />
+            <SearchButton onClick={() => setValue("")}>Clear</SearchButton>
+          </WrapperInput>
+        </Wrapper>
       </>
     );
   }
 };
-const Wrapper = styled.div``;
-
-const WrapperInput = styled.div`
+const Wrapper = styled.div`
   border: 3px yellowgreen solid;
   border-radius: 10px;
+`;
+
+const WrapperInput = styled.div`
   display: flex;
   align-items: center;
 `;
@@ -144,19 +160,21 @@ const SearchButton = styled.button`
 
 const WrapperSuggestions = styled.div``;
 
-const HiddenWrapperSuggestions = styled.div`
+const HiddenSuggestionList = styled.div`
   position: absolute;
   width: 50vw;
   background-color: white;
   color: black;
   padding: 5px;
-  box-shadow: 0px 0px 5px 1px grey;
+  max-width: 700px;
+  font-size: 11pt;
+  border-radius: 10px;
 `;
 
-const SuggestionsList = styled.li`
+const SuggestionItem = styled.div`
   padding: 7px 10px;
-  list-style-type: none;
   cursor: pointer;
+  border-radius: 10px;
 `;
 
 const Prediction = styled.strong``;
