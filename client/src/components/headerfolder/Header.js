@@ -4,7 +4,8 @@ import { NavLink } from "react-router-dom";
 
 import { Icon } from "react-icons-kit";
 import { androidMenu } from "react-icons-kit/ionicons/androidMenu";
-import Sidebar from './Sidebar';
+import Sidebar from "./Sidebar";
+import SearchBarComponent from "./SearchBar";
 
 // Update items in cart when DB is done
 // Implement Search as a stretch
@@ -16,17 +17,14 @@ const Header = () => {
         <Main>
           <div style={{ color: "white" }}>
             {/* <Icon icon={androidMenu} size={40} /> */}
-            <Sidebar/>
+            <Sidebar />
           </div>
           <Logo>
             <Link exact to="/">
               Wearable.ca
             </Link>
           </Logo>
-          <SearchWrapper>
-            <SearchBar placeholder="Search an item..." />
-            <SearchButton>Search</SearchButton>
-          </SearchWrapper>
+          <SearchBarComponent />
         </Main>
         <Nav>
           <Link exact to="/">
@@ -66,35 +64,6 @@ const Nav = styled.nav`
 
 const Logo = styled.div`
   margin: 0px 25px 0px 15px;
-`;
-
-const SearchWrapper = styled.div`
-  border: 3px yellowgreen solid;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-`;
-
-const SearchBar = styled.input`
-  height: 33px;
-  width: 50vw;
-  max-width: 700px;
-  border: none;
-  padding: 1px 5px 0px 10px;
-  border-top-left-radius: 7px;
-  border-bottom-left-radius: 7px;
-  outline: none;
-  font-family: "Poppins", sans-serif;
-`;
-
-const SearchButton = styled.button`
-  height: 34px;
-  border: none;
-  background-color: yellowgreen;
-  color: white;
-  cursor: pointer;
-  padding: 0px 15px;
-  font-family: "Poppins", sans-serif;
 `;
 
 const CartWrapper = styled.div`
