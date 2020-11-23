@@ -8,8 +8,11 @@ import Footer from "./Footer";
 import Header from "./headerfolder/Header";
 import Homepage from "./homepagefolder/Homepage";
 import ProductPage from "./productpagefolder/ProductPage";
+import useFetchCart from "../custom-hooks/fetchCart";
 
 function App() {
+  //Retrieve cart each time app re-renders. This way we keep cart at each rtefresh everywhere in the app
+  useFetchCart();
   return (
     <>
       <BrowserRouter>

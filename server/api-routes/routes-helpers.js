@@ -1,5 +1,6 @@
 //Data imports
 const items = require("../data/items.json");
+const cart = require("../data/cart.json");
 
 //Error simulation constants
 const MAX_DELAY = 2000;
@@ -42,8 +43,17 @@ const decrementQuantity = (order) => {
   });
 };
 
+//Increment number of items in cart
+const incrementCart = (item) => {
+  cart.items.push(item);
+  cart.number_of_items += 1;
+  const totalPrice = parseFloat(item.price.substring(1));
+  cart.total_price += totalPrice;
+};
+
 module.exports = {
   simulateProblems,
   checkIfFound,
   decrementQuantity,
+  incrementCart,
 };

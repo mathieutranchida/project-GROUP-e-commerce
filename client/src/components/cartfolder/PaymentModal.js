@@ -14,7 +14,7 @@ const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
             <Title>Order Checkout</Title>
             <OrderSummaryModal>
               <SmallTitle>Order Summary</SmallTitle>
-              {cart.map((item) => {
+              {cart.items.map((item) => {
                 return (
                   <>
                     <Item>
