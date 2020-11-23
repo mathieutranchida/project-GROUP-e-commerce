@@ -2,6 +2,7 @@ const initialState = {
   items: null,
   status: "loading",
   error: null,
+  itemsCopy: null,
 };
 
 export default function itemsReducer(state = initialState, action) {
@@ -17,6 +18,7 @@ export default function itemsReducer(state = initialState, action) {
         ...state,
         items: action.items,
         status: "idle",
+        itemsCopy: action.items,
       };
     }
     case "RECEIVE_ALL_ITEMS_ERROR": {
@@ -25,6 +27,19 @@ export default function itemsReducer(state = initialState, action) {
         status: "error",
       };
     }
+    case "FILTER_ITEMS": {
+      return {
+        ...state,
+        items: {data : action.items},
+      };
+    }
+    case "SHOW_ALL_ITEMS": {
+      return {
+        ...state,
+        items: state.itemsCopy,
+      };
+    }
+    
     default: {
       return state;
     }
