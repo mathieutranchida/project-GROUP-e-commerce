@@ -13,6 +13,11 @@ const {
   addItemToCart,
   modifyCartQuantity,
 } = require("./api-routes/cart");
+const {
+  getAllAccounts,
+  getAccountByEmail,
+  createAccount,
+} = require("./api-routes/authentication");
 
 const PORT = 4000;
 
@@ -77,5 +82,15 @@ express()
   .patch("/cart", (req, res) => {
     modifyCartQuantity(req, res);
   })
+
+  //ACCOUNTS ROUTES --------------------------------------
+  //Get all accounts
+  .get("/accounts", (req, res) => getAllAccounts(req, res))
+
+  //Get account by email
+  .get("/account/:email", (req, res) => getAccountByEmail(req, res))
+
+  //Create an account
+  .post("/account", (req, res) => createAccount(req, res))
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));
