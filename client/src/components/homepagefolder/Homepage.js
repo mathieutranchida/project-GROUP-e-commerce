@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 //rfce && rxr
@@ -7,15 +7,30 @@ import history from "../../history";
 import COLORS from "../../constants";
 import Loading from "../../Loading";
 
+import Pagination from './Pagination';
+
 const Homepage = () => {
-  const items = useSelector(
+  const itemsData = useSelector(
     (state) => state.items.items && state.items.items.data
   );
+
+  const itemsPerPage =  Math.ceil(itemsData === null ? 20 : itemsData.length / 10)
+ 
+  const [currentPage, setCurrentPage] = useState(1);
+  
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const items = itemsData?.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
   console.log(items);
 
   return (
     <>
       <MainWrapper>
+      <Pagination  paginate={paginate}/>
         {items ? (
           <Wrapper>
             {items.map((item) => {
@@ -48,15 +63,19 @@ const Homepage = () => {
                       {<Stock qty={item.numInStock}>{quantitiesMessage}</Stock>}
                       <span>{`Price: ${item.price}`}</span>
                     </ProductDetail>
-                    <PurchaseBtn>Purchase</PurchaseBtn>
+                    {item.numInStock !== 0 ? 
+                        <PurchaseBtn>Purchase</PurchaseBtn> 
+                        : <DisabledBtn>Out of stock</DisabledBtn>}
                   </ProductDetailArea>
                 </Item>
               );
             })}
+            
           </Wrapper>
         ) : (
           <Loading />
         )}
+        <Pagination  paginate={paginate}/>
       </MainWrapper>
     </>
   );
@@ -92,6 +111,17 @@ const PurchaseBtn = styled.button`
   border: none;
   box-shadow: 2px 2px 10px rgba(161, 161, 161, 0.3);
   cursor: pointer;
+ 
+`;
+const DisabledBtn = styled.div`
+  padding: 10px 0px;
+  font-family: "Poppins", sans-serif;
+  color: ${COLORS.black};
+  background-color: ${COLORS.grey};
+  border-radius: 5px;
+  border: none;
+  box-shadow: 2px 2px 10px rgba(161, 161, 161, 0.3);
+  text-align: center;
 `;
 
 const Name = styled.span`
