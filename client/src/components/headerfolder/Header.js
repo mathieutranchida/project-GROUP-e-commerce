@@ -43,6 +43,7 @@ const Header = () => {
               <div>Cart</div>
             </CartWrapper>
           </Link>
+          <Link to="/login">Login</Link>
         </Nav>
       </Wrapper>
     </>
@@ -66,6 +67,7 @@ const Main = styled.div`
 const Nav = styled.nav`
   display: flex;
   align-items: center;
+  margin-right: 15px;
 `;
 
 const Logo = styled.div`
@@ -73,7 +75,7 @@ const Logo = styled.div`
 `;
 
 const CartWrapper = styled.div`
-  margin: 0px 5px 0px 25px;
+  margin: 0px 25px 0px 25px;
   padding: 0px 5px;
   display: flex;
   align-items: center;

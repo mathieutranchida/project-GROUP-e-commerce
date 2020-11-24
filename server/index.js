@@ -8,7 +8,11 @@ const morgan = require("morgan");
 const { getAllItems, getItemById } = require("./api-routes/items");
 const { getAllCompanies, getCompanyById } = require("./api-routes/companies");
 const { createOrder, getAllOrders } = require("./api-routes/orders");
-const { getCart, addItemToCart } = require("./api-routes/cart");
+const {
+  getCart,
+  addItemToCart,
+  modifyCartQuantity,
+} = require("./api-routes/cart");
 
 const PORT = 4000;
 
@@ -68,5 +72,10 @@ express()
 
   //Add item to cart
   .post("/cart", (req, res) => addItemToCart(req, res))
+
+  //Patch (modify) cart
+  .patch("/cart", (req, res) => {
+    modifyCartQuantity(req, res);
+  })
 
   .listen(PORT, () => console.info(`Listening on port ${PORT}`));

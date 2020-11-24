@@ -1,6 +1,9 @@
 // Data import
 const cart = require("../data/cart.json");
-const { incrementCart } = require("../api-routes/routes-helpers");
+const {
+  incrementCart,
+  toggleQuantity,
+} = require("../api-routes/routes-helpers");
 
 // Get the cart
 const getCart = (req, res) => {
@@ -23,7 +26,23 @@ const addItemToCart = (req, res) => {
   }
 };
 
+//Modify cart quantity
+const modifyCartQuantity = (req, res) => {
+  try {
+    const itemId = req.body.id;
+    const quantity = req.body.quantity;
+    console.log(quantity);
+    toggleQuantity(itemId, quantity);
+    res
+      .status(200)
+      .json({ status: 200, data: { id: itemId, quantity: quantity } });
+  } catch (error) {
+    res.status(500).json({ status: 500, error: error.message });
+  }
+};
+
 module.exports = {
   getCart,
   addItemToCart,
+  modifyCartQuantity,
 };

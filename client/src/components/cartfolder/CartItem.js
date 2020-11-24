@@ -4,6 +4,15 @@ import styled from "styled-components";
 
 const CartItem = ({ itemObj }) => {
   console.log(itemObj);
+  const handleQuantity = (id, quantity) => {
+    fetch("/cart", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: id, quantity: quantity }),
+    }).then(() => {
+      window.location.reload();
+    });
+  };
   return (
     <>
       <Wrapper>
@@ -22,7 +31,13 @@ const CartItem = ({ itemObj }) => {
             <BottomWrapper>
               <QuantityDiv>
                 <Quantity>Quantity:</Quantity>
-                <QuantityInput type="number" defaultValue={itemObj.quantity} />
+                <QuantityInput
+                  type="number"
+                  defaultValue={itemObj.quantity}
+                  onChange={(e) =>
+                    handleQuantity(itemObj.item._id, e.target.value)
+                  }
+                />
               </QuantityDiv>
               <Remove>Remove</Remove>
             </BottomWrapper>
