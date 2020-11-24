@@ -13,11 +13,13 @@ import SignUp from "./authentication/signup/SignUp";
 import MyProfile from "./authentication/my-profile/MyProfile";
 import useFetchCart from "../custom-hooks/fetchCart";
 import useFetchAllItems from "../custom-hooks/useFetchAllItems";
+import useFetchUser from "../custom-hooks/useFetchUser";
 
 function App() {
   //Retrieve cart each time app re-renders. This way we keep cart at each rtefresh everywhere in the app
   useFetchCart();
   useFetchAllItems();
+  useFetchUser();
   return (
     <>
       <BrowserRouter>
