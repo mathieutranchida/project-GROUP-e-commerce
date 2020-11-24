@@ -31,7 +31,6 @@ const modifyCartQuantity = (req, res) => {
   try {
     const itemId = req.body.id;
     const quantity = req.body.quantity;
-    console.log(quantity);
     toggleQuantity(itemId, quantity);
     res
       .status(200)

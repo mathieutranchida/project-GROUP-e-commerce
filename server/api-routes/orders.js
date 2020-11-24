@@ -6,6 +6,7 @@ const { decrementQuantity } = require("./routes-helpers");
 const createOrder = (req, res) => {
   try {
     const order = req.body;
+    console.log(order);
     decrementQuantity(order);
     orders.push(order);
     res.status(200).json({ status: 200, data: order });
