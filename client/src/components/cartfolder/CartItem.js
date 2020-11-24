@@ -22,7 +22,7 @@ const CartItem = ({ itemObj }) => {
             <BottomWrapper>
               <QuantityDiv>
                 <Quantity>Quantity:</Quantity>
-                <QuantityInput type="number" placeholder={itemObj.quantity} />
+                <QuantityInput type="number" defaultValue={itemObj.quantity} />
               </QuantityDiv>
               <Remove>Remove</Remove>
             </BottomWrapper>

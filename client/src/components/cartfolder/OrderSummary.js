@@ -12,7 +12,7 @@ const OrderSummary = ({ modalOpen, setModalOpen }) => {
       <Wrapper>
         <SubTotalDiv>
           <Sub>Subtotal ({cart.items.length} item):</Sub>
-          <Strong>${cart.totalPrice}</Strong>
+          <Strong>${cart.totalPrice.toFixed(2)}</Strong>
         </SubTotalDiv>
         <Button
           onClick={() => (modalOpen ? setModalOpen(false) : setModalOpen(true))}

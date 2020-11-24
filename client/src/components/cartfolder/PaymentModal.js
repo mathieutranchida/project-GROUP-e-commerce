@@ -31,7 +31,7 @@ const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
                 );
               })}
               <TotalContainer>
-                <Total>Total: ${cart.totalPrice}</Total>
+                <Total>Total: ${cart.totalPrice.toFixed(2)}</Total>
               </TotalContainer>
             </OrderSummaryModal>
             <ContainerInfo>
