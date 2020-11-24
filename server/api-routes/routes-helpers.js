@@ -70,9 +70,11 @@ const incrementCart = (item) => {
 //Change quantity of cart
 const toggleQuantity = (id, quantity) => {
   const itemFound = cart.items.find((itemObj) => itemObj.item._id === id);
+  console.log(itemFound);
+
   if (itemFound) {
     cart.items.forEach((item, index) => {
-      if (item._id === itemFound._id) {
+      if (item.item._id === itemFound.item._id) {
         //Substract old quantity and price
         cart.number_of_items -= cart.items[index].quantity;
         cart.total_price -=
@@ -82,7 +84,7 @@ const toggleQuantity = (id, quantity) => {
         //Update price and quantity
         cart.items[index] = {
           ...cart.items[index],
-          quantity: quantity,
+          quantity: parseInt(quantity),
         };
 
         //Add new quantity and price

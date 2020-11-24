@@ -33,7 +33,7 @@ export const filterItems = (items) => ({
 
 export const showAllItems = () => ({
   type: "SHOW_ALL_ITEMS",
-})
+});
 //Cart Actions
 export const requestCart = () => ({
   type: "REQUEST_CART",
@@ -51,4 +51,10 @@ export const errorRequestCart = () => ({
 export const addToCart = (item) => ({
   type: "ADD_TO_CART",
   item,
+});
+
+//Order Actions
+export const updateOrder = (data) => ({
+  type: "UPDATE_ORDER",
+  data: data,
 });
