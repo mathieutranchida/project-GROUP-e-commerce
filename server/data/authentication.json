@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Mathieu Tranchida",
+    "email": "mt@gmail.com",
+    "password": "1234",
+    "address": "2222 Rue Saint André, Montreal, QC, H2L 0C0"
+  },
+  {
+    "name": "Gautier Marechal",
+    "email": "gm@gmail.com",
+    "password": "5678",
+    "address": "1111 Rue Time, Montreal, QC, H3M 3P3"
+  }
+]
