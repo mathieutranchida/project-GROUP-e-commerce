@@ -50,6 +50,7 @@ const Cart = () => {
 
 const Div = styled.div`
   background-color: #eaedec;
+  min-height: calc(100vh - 75px - 50px);
 `;
 
 const Wrapper = styled.div`
