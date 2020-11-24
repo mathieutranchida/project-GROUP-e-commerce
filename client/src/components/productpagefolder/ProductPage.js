@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions";
+import ModalAddedToCart from "./ModalAddedToCart";
 
 const ProductPage = () => {
   const itemId = useParams();
   const [singleItem, setSingleItem] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -80,7 +82,19 @@ const ProductPage = () => {
                 </DetailedInfoWrapper>
               </ProductDetailsWrapper>
             </Main>
-            <AddToCart onClick={handleAddItemToServer}>Add to cart</AddToCart>
+            <AddToCart
+              onClick={() => {
+                setShowModal(true);
+
+                handleAddItemToServer();
+              }}
+            >
+              Add to cart
+            </AddToCart>
+            <ModalAddedToCart
+              showModal={showModal}
+              setShowModal={setShowModal}
+            />
           </Wrapper>
         </Div>
       </>
@@ -90,17 +104,21 @@ const ProductPage = () => {
 
 const Div = styled.div`
   background-color: #eaedec;
-  padding: 25px;
+  min-height: calc(100vh - 75px - 50px);
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  margin: 0px auto;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: white;
   max-width: 1150px;
+  min-width: 900px;
   padding: 25px;
 `;
 
