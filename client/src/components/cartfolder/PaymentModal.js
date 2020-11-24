@@ -1,8 +1,54 @@
 import React from "react";
 import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
 import COLORS from "../../constants";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  createOrder,
+  updateOrderBillingAddress,
+  updateOrderCardExpirationDate,
+  updateOrderCardNumber,
+  updateOrderName,
+  updateOrderNameOnCard,
+  updateOrderShippingAddress,
+} from "../../redux/actions";
 
 const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
+  const dispatch = useDispatch();
+  const order = useSelector((state) => state.order);
+
+  React.useEffect(() => {
+    console.log(cart);
+    const orderItems = cart.items.map((item) => {
+      return {
+        _id: item.item._id,
+        quantity: item.quantity,
+        price: item.price,
+        item: item,
+      };
+    });
+    dispatch(
+      createOrder({
+        createdAt: Date.now(),
+        id: uuidv4(),
+        totalPrice: cart.totalPrice,
+        quantity: cart.numberOfItems,
+        items: orderItems,
+      })
+    );
+  }, [modalOpen]);
+
+  const handleCreateOrder = () => {
+    console.log(order);
+    fetch("/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(order),
+    });
+  };
+
   return (
     <>
       <BackgroundModal modalOpen={modalOpen}>
@@ -37,28 +83,59 @@ const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
             <ContainerInfo>
               <SmallTitle>Customer Information</SmallTitle>
               <LabelInput htmlFor="customer-name">Name</LabelInput>
-              <Input id="customer-name" />
+              <Input
+                id="customer-name"
+                onChange={(e) => dispatch(updateOrderName(e.target.value))}
+              />
               <LabelInput htmlFor="shipping-address">
                 Shipping Address
               </LabelInput>
-              <Input id="shipping-address" />
+              <Input
+                id="shipping-address"
+                onChange={(e) =>
+                  dispatch(updateOrderShippingAddress(e.target.value))
+                }
+              />
             </ContainerInfo>
 
             <Line />
             <ContainerInfo>
               <SmallTitle>Payment Information</SmallTitle>
               <LabelInput htmlFor="card-name">Name on credit card</LabelInput>
-              <Input id="card-name" />
+              <Input
+                id="card-name"
+                onChange={(e) =>
+                  dispatch(updateOrderNameOnCard(e.target.value))
+                }
+              />
               <LabelInput htmlFor="card-number">Card Number</LabelInput>
-              <Input id="card-number" />
+              <Input
+                id="card-number"
+                onChange={(e) =>
+                  dispatch(updateOrderCardNumber(e.target.value))
+                }
+              />
               <LabelInput htmlFor="card-expiration-date">
                 Expiration Date
               </LabelInput>
-              <Input id="card-expiration-date" type="date" />
+              <Input
+                id="card-expiration-date"
+                type="date"
+                onChange={(e) =>
+                  dispatch(updateOrderCardExpirationDate(e.target.value))
+                }
+              />
               <LabelInput htmlFor="billing-address">Billing Address</LabelInput>
-              <Input id="billing-address" />
+              <Input
+                id="billing-address"
+                onChange={(e) =>
+                  dispatch(updateOrderBillingAddress(e.target.value))
+                }
+              />
             </ContainerInfo>
-            <ProceedPaymentButton>Proceed to Payment</ProceedPaymentButton>
+            <ProceedPaymentButton onClick={handleCreateOrder}>
+              Proceed to Payment
+            </ProceedPaymentButton>
           </ContentContainer>
         </ModalContainer>
       </BackgroundModal>

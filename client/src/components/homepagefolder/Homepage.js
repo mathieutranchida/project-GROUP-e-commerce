@@ -64,7 +64,7 @@ const Homepage = () => {
                       <span>{`Price: ${item.price}`}</span>
                     </ProductDetail>
                     {item.numInStock !== 0 ? 
-                        <PurchaseBtn>Purchase</PurchaseBtn> 
+                        <PurchaseBtn>Add to cart</PurchaseBtn> 
                         : <DisabledBtn>Out of stock</DisabledBtn>}
                   </ProductDetailArea>
                 </Item>
