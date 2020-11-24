@@ -1,3 +1,4 @@
+// ITEMS -----------------------------------------
 // Fetch items for the main page
 export const requestAllItems = () => ({
   type: "REQUEST_ALL_ITEMS",
@@ -21,6 +22,23 @@ export const receiveSingleItem = (item) => ({
   type: "RECEIVE_SINGLE_ITEM",
   item,
 });
+
+// ACCOUNTS -----------------------------------------
+// Fetch a single account for authentication
+export const requestSingleAccount = () => ({
+  type: "REQUEST_SINGLE_ACCOUNT",
+});
+
+export const receiveSingleAccount = (account) => ({
+  type: "RECEIVE_SINGLE_ACCOUNT",
+  account,
+});
+
+export const receiveaSingleAccountError = () => ({
+  type: "RECEIVE_SINGLE_ACCOUNT_ERROR",
+});
+
+// SIDEBAR ----------------------------------------------
 // filter actions in the sidebar
 export const receiveSingleItemError = () => ({
   type: "RECEIVE_SINGLE_ITEM_ERROR",
@@ -33,7 +51,9 @@ export const filterItems = (items) => ({
 
 export const showAllItems = () => ({
   type: "SHOW_ALL_ITEMS",
-})
+});
+
+// CART -----------------------------------------------
 //Cart Actions
 export const requestCart = () => ({
   type: "REQUEST_CART",
