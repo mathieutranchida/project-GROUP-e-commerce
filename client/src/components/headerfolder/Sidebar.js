@@ -19,7 +19,7 @@ const FilterDropdwon = ({ options, filter, items, onSelect }) => {
     } else {
       dispatch(showAllItems());
     }
-    setSelection(options[0].value);
+    //setSelection(options[0].value);
     onSelect(false);
   };
 
@@ -142,6 +142,10 @@ function Sidebar() {
             "bodyLoc filter"
           )}
         </NavItem>
+
+        <NavItem>
+          <ResetBtn onClick={() => dispatch(showAllItems())}>Reset search</ResetBtn>
+        </NavItem>
       </>
     );
   };
@@ -238,6 +242,12 @@ const NavMenuItems = styled.ul`
 
 const NavItem = styled.li`
   padding: 32px 0px 32px 0px;
+`;
+
+const ResetBtn = styled.button`
+  padding: 10px;
+ 
+
 `;
 
 export default Sidebar;
