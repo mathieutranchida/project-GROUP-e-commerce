@@ -67,9 +67,38 @@ const incrementCart = (item) => {
   }
 };
 
+//Change quantity of cart
+const toggleQuantity = (id, quantity) => {
+  const itemFound = cart.items.find((itemObj) => itemObj.item._id === id);
+  if (itemFound) {
+    cart.items.forEach((item, index) => {
+      if (item._id === itemFound._id) {
+        //Substract old quantity and price
+        cart.number_of_items -= cart.items[index].quantity;
+        cart.total_price -=
+          cart.items[index].quantity *
+          parseFloat(cart.items[index].item.price.substring(1));
+
+        //Update price and quantity
+        cart.items[index] = {
+          ...cart.items[index],
+          quantity: quantity,
+        };
+
+        //Add new quantity and price
+        cart.number_of_items += cart.items[index].quantity;
+        cart.total_price +=
+          cart.items[index].quantity *
+          parseFloat(cart.items[index].item.price.substring(1));
+      }
+    });
+  }
+};
+
 module.exports = {
   simulateProblems,
   checkIfFound,
   decrementQuantity,
   incrementCart,
+  toggleQuantity,
 };

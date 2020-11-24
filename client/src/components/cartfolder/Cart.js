@@ -8,7 +8,6 @@ import PaymentModal from "./PaymentModal";
 import { useSelector } from "react-redux";
 
 const Cart = () => {
-  // window.location.reload();
   const [modalOpen, setModalOpen] = React.useState();
   const cart = useSelector((state) => state.cart);
   return (
@@ -29,7 +28,7 @@ const Cart = () => {
                 return <CartItem itemObj={item} key={item.item._id} />;
               })}
               <TotalContainer>
-                <Total>Total: ${cart.totalPrice}</Total>
+                <Total>Total: ${cart.totalPrice.toFixed(2)}</Total>
               </TotalContainer>
             </ArticleWrapper>
             <PaymentModal

@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions";
+import ModalAddedToCart from "./ModalAddedToCart";
 
 const ProductPage = () => {
   const itemId = useParams();
   const [singleItem, setSingleItem] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -80,7 +82,19 @@ const ProductPage = () => {
                 </DetailedInfoWrapper>
               </ProductDetailsWrapper>
             </Main>
-            <AddToCart onClick={handleAddItemToServer}>Add to cart</AddToCart>
+            <AddToCart
+              onClick={() => {
+                setShowModal(true);
+
+                handleAddItemToServer();
+              }}
+            >
+              Add to cart
+            </AddToCart>
+            <ModalAddedToCart
+              showModal={showModal}
+              setShowModal={setShowModal}
+            />
           </Wrapper>
         </Div>
       </>
