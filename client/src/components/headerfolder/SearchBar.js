@@ -54,6 +54,9 @@ const SearchBarComponent = () => {
                     }
                     return;
                   }
+                  case "Escape": {
+                    setValue("");
+                  }
                 }
               }}
             />
@@ -141,7 +144,7 @@ const SearchBar = styled.input`
   width: 50vw;
   max-width: 700px;
   border: none;
-  padding: 1px 5px 0px 10px;
+  padding: 1px 5px 0px 5px;
   border-top-left-radius: 7px;
   border-bottom-left-radius: 7px;
   outline: none;
@@ -161,6 +164,7 @@ const SearchButton = styled.button`
 const WrapperSuggestions = styled.div``;
 
 const HiddenSuggestionList = styled.div`
+  top: 45px;
   position: absolute;
   width: 50vw;
   background-color: white;
@@ -169,6 +173,7 @@ const HiddenSuggestionList = styled.div`
   max-width: 700px;
   font-size: 11pt;
   border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px grey;
 `;
 
 const SuggestionItem = styled.div`
@@ -178,7 +183,5 @@ const SuggestionItem = styled.div`
 `;
 
 const Prediction = styled.strong``;
-
-const Loading = styled.div``;
 
 export default SearchBarComponent;

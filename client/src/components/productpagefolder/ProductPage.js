@@ -90,17 +90,21 @@ const ProductPage = () => {
 
 const Div = styled.div`
   background-color: #eaedec;
-  padding: 25px;
+  min-height: calc(100vh - 75px - 50px);
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  margin: 0px auto;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background-color: white;
   max-width: 1150px;
+  min-width: 900px;
   padding: 25px;
 `;
 

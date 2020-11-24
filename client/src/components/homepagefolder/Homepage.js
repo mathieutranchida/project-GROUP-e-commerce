@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 import history from "../../history";
 import COLORS from "../../constants";
+import Loading from "../../Loading";
 
 const Homepage = () => {
   const items = useSelector(
@@ -14,48 +15,56 @@ const Homepage = () => {
 
   return (
     <>
-      {items ? (
-        <Wrapper>
-          {items.map((item) => {
-            const quantitiesMessage =
-              item.numInStock === 0
-                ? "Unavailable"
-                : `In Stock: ${item.numInStock}`;
-            return (
-              <Item key={item._id}>
-                <Pic src={item.imageSrc} />
-                <ProductDetailArea>
-                  <Name
-                    onClick={() => {
-                      history.push(`/product/${item._id}`);
-                      document.location.reload();
-                    }}
-                    tabIndex="0"
-                    aria-label="view detailed product page"
-                    onKeyDown={(ev) => {
-                      if (ev.key === "Enter") {
+      <MainWrapper>
+        {items ? (
+          <Wrapper>
+            {items.map((item) => {
+              const quantitiesMessage =
+                item.numInStock === 0
+                  ? "Unavailable"
+                  : `In Stock: ${item.numInStock}`;
+              return (
+                <Item key={item._id}>
+                  <Pic src={item.imageSrc} />
+                  <ProductDetailArea>
+                    <Name
+                      onClick={() => {
                         history.push(`/product/${item._id}`);
                         document.location.reload();
-                      }
-                    }}
-                  >
-                    {item.name}
-                  </Name>
-                  <ProductDetail>
-                    <span>{`Category: ${item.category}`}</span>
-                    {<Stock qty={item.numInStock}>{quantitiesMessage}</Stock>}
-                    <span>{`Price: ${item.price}`}</span>
-                  </ProductDetail>
-                  <PurchaseBtn>Purchase</PurchaseBtn>
-                </ProductDetailArea>
-              </Item>
-            );
-          })}
-        </Wrapper>
-      ) : undefined}
+                      }}
+                      tabIndex="0"
+                      aria-label="view detailed product page"
+                      onKeyDown={(ev) => {
+                        if (ev.key === "Enter") {
+                          history.push(`/product/${item._id}`);
+                          document.location.reload();
+                        }
+                      }}
+                    >
+                      {item.name}
+                    </Name>
+                    <ProductDetail>
+                      <span>{`Category: ${item.category}`}</span>
+                      {<Stock qty={item.numInStock}>{quantitiesMessage}</Stock>}
+                      <span>{`Price: ${item.price}`}</span>
+                    </ProductDetail>
+                    <PurchaseBtn>Purchase</PurchaseBtn>
+                  </ProductDetailArea>
+                </Item>
+              );
+            })}
+          </Wrapper>
+        ) : (
+          <Loading />
+        )}
+      </MainWrapper>
     </>
   );
 };
+
+const MainWrapper = styled.div`
+  min-height: calc(100vh - 75px - 50px);
+`;
 
 const Stock = styled.span`
   color: ${(props) => {
@@ -110,7 +119,6 @@ const Wrapper = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
   padding: 10px;
-
   margin-right: 20px;
 `;
 
