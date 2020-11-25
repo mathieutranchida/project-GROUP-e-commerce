@@ -3,12 +3,14 @@
     "name": "Mathieu Tranchida",
     "email": "mt@gmail.com",
     "password": "1234",
-    "address": "2222 Rue Saint André, Montreal, QC, H2L 0C0"
+    "address_line_1": "2222 Rue Saint André",
+    "address_line_2": "Montreal, QC, H2L 0C0"
   },
   {
     "name": "Gautier Marechal",
     "email": "gm@gmail.com",
     "password": "5678",
-    "address": "1111 Rue Time, Montreal, QC, H3M 3P3"
+    "address_line_1": "1111 Rue Time",
+    "address_line_2": "Montreal, QC, H3M 3P3"
   }
 ]

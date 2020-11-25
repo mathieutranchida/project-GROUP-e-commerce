@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import { ImSpinner2 } from "react-icons/im";
+import COLORS from "./constants";
 
 const Loading = () => {
   return (
@@ -21,9 +22,11 @@ const Wrapper = styled.div`
 const StyledSpinner = styled(ImSpinner2)`
   height: 50px;
   width: 50px;
-  animation-duration: 1500ms;
+  color: ${COLORS.darkBlue};
+  animation-duration: 750ms;
   animation-name: spin;
   animation-iteration-count: infinite;
+  animation-timing-function: linear;
   @keyframes spin {
     from {
       transform: rotate(0deg);
