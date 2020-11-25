@@ -6,11 +6,13 @@ import { Icon } from "react-icons-kit";
 import { androidMenu } from "react-icons-kit/ionicons/androidMenu";
 import Sidebar from "./Sidebar";
 import SearchBarComponent from "./SearchBar";
+import { useSelector } from "react-redux";
 
 // Update items in cart when DB is done
 // Implement Search as a stretch
 
 const Header = () => {
+  const cart = useSelector((state) => state.cart);
   return (
     <>
       <Wrapper>
@@ -38,8 +40,7 @@ const Header = () => {
                 }, 500)
               }
             >
-              {/* Update here with cart length */}
-              <ItemsInCart>3</ItemsInCart>
+              <ItemsInCart>{cart.numberOfItems}</ItemsInCart>
               <div>Cart</div>
             </CartWrapper>
           </Link>
