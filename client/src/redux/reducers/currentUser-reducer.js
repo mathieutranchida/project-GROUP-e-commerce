@@ -1,5 +1,5 @@
 const initialState = {
-  account: false,
+  account: null,
   status: "idle",
   error: null,
 };
@@ -13,6 +13,7 @@ export default function currentUserReducer(state = initialState, action) {
       };
     }
     case "RECEIVE_SINGLE_ACCOUNT": {
+      console.log(action.account);
       return {
         ...state,
         account: action.account,
@@ -28,7 +29,7 @@ export default function currentUserReducer(state = initialState, action) {
     case "SET_BACK_TO_DEFAULT": {
       return {
         ...state,
-        account: false,
+        account: null,
         status: "idle",
         error: null,
       };

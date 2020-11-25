@@ -14,11 +14,9 @@ const useFetchUser = () => {
     (state) => state.currentUser.account && state.currentUser.account.email
   );
 
-  console.log(email);
-
   useEffect(() => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-    if (isLoggedIn === "true") {
+    if (isLoggedIn && email) {
       dispatch(requestSingleAccount());
       fetch(`/account/${email}`, {
         method: "GET",
@@ -28,7 +26,6 @@ const useFetchUser = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           dispatch(receiveSingleAccount(data.data));
           localStorage.setItem("isLoggedIn", true);
           localStorage.setItem("email", data.data.email);
@@ -38,7 +35,7 @@ const useFetchUser = () => {
           dispatch(receiveaSingleAccountError());
         });
     }
-  }, []);
+  }, [email]);
 };
 
 export default useFetchUser;
