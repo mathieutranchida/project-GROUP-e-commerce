@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Pagination({ paginate }) {
+function Pagination({ paginate, currentPage }) {
    const itemsPerPage = 10;
     const pageNumbers = [];
 
@@ -17,6 +17,7 @@ function Pagination({ paginate }) {
                     <PageNumber 
                         onClick={() => paginate(number)} 
                         key={number}
+                        className={currentPage === number ? 'current' : ''}
                         >
                             {number}
                         </PageNumber>)

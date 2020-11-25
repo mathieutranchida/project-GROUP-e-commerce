@@ -1,7 +1,9 @@
 import React,{useState} from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 //rfce && rxr
+
+import {addToCart} from '../../redux/actions';
 
 import history from "../../history";
 import COLORS from "../../constants";
@@ -13,6 +15,7 @@ const Homepage = () => {
   const itemsData = useSelector(
     (state) => state.items.items && state.items.items.data
   );
+  const dispatch = useDispatch();
 
   const itemsPerPage =  Math.ceil(itemsData === null ? 20 : itemsData.length / 10)
  
@@ -30,7 +33,7 @@ const Homepage = () => {
   return (
     <>
       <MainWrapper>
-      <Pagination  paginate={paginate}/>
+      <Pagination  paginate={paginate} currentPage={currentPage}/>
         {items ? (
           <Wrapper>
             {items.map((item) => {
@@ -64,7 +67,8 @@ const Homepage = () => {
                       <span>{`Price: ${item.price}`}</span>
                     </ProductDetail>
                     {item.numInStock !== 0 ? 
-                        <PurchaseBtn>Purchase</PurchaseBtn> 
+                        <PurchaseBtn 
+                        onClick={() => dispatch(addToCart(item))}>Add to cart</PurchaseBtn> 
                         : <DisabledBtn>Out of stock</DisabledBtn>}
                   </ProductDetailArea>
                 </Item>
@@ -75,7 +79,7 @@ const Homepage = () => {
         ) : (
           <Loading />
         )}
-        <Pagination  paginate={paginate}/>
+        <Pagination  paginate={paginate} currentPage={currentPage}/>
       </MainWrapper>
     </>
   );

@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 import COLORS from "../../../constants";
+import { useDispatch } from "react-redux";
+
+import {
+  requestSingleAccount,
+  receiveSingleAccount,
+  receiveaSingleAccountError,
+} from "../../../redux/actions";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const dispatch = useDispatch();
+
+  const handleLogin = () => {
+    dispatch(requestSingleAccount());
+    fetch(`/account/${email}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application.json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        dispatch(receiveSingleAccount());
+        localStorage.setItem("isLoggedin", true);
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(receiveaSingleAccountError());
+      });
+  };
+
   return (
     <>
       <Wrapper>
@@ -12,15 +44,27 @@ const Login = () => {
           <Title>Login</Title>
           <InputDiv>
             <Type>Email *</Type>
-            <Input type="email" required />
+            <Input
+              type="email"
+              required
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
+            />
           </InputDiv>
           <InputDiv>
             <Type>Password *</Type>
-            <Input type="password" required />
+            <Input
+              type="password"
+              required
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+            />
           </InputDiv>
           <SignUp to="/sign-up">Create an account</SignUp>
           <ButtonWrapper>
-            <Button>Login</Button>
+            <Button onClick={handleLogin}>Login</Button>
           </ButtonWrapper>
         </LoginWrapper>
       </Wrapper>
