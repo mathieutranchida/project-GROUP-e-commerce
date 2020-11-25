@@ -1,3 +1,5 @@
+import { addCheddar} from '../../Money';
+
 const initialState = {
   status: "idle",
   numberOfItems: 0,
@@ -30,6 +32,7 @@ export default function cartReducer(state = initialState, action) {
         ...state,
         numberOfItems: state.numberOfItems + 1,
         items: [...state.items, { item: action.item, quantity: 1 }],
+        totalPrice: addCheddar(state.totalPrice,parseFloat(action.item.price.slice(1)) )
       };
     default: {
       return state;

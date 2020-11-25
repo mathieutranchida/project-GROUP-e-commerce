@@ -14,6 +14,7 @@ import MyProfile from "./authentication/my-profile/MyProfile";
 import useFetchCart from "../custom-hooks/fetchCart";
 import useFetchAllItems from "../custom-hooks/useFetchAllItems";
 import useFetchUser from "../custom-hooks/useFetchUser";
+import ConfirmedOrder from "./cartfolder/ConfirmedOrder";
 
 function App() {
   //Retrieve cart each time app re-renders. This way we keep cart at each rtefresh everywhere in the app
@@ -44,6 +45,9 @@ function App() {
             </Route>
             <Route path="/my-profile">
               <MyProfile />
+            </Route>
+            <Route path="/confirmed-order">
+              <ConfirmedOrder />
             </Route>
           </Switch>
           <Footer />

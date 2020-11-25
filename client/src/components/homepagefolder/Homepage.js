@@ -1,36 +1,50 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 //rfce && rxr
+
+import { addToCart } from "../../redux/actions";
 
 import history from "../../history";
 import COLORS from "../../constants";
 import Loading from "../../Loading";
 
-import Pagination from './Pagination';
+import Pagination from "./Pagination";
+import ModalAddedToCart from "../productpagefolder/ModalAddedToCart";
 
 const Homepage = () => {
   const itemsData = useSelector(
     (state) => state.items.items && state.items.items.data
   );
+  const dispatch = useDispatch();
 
-  const itemsPerPage =  Math.ceil(itemsData === null ? 20 : itemsData.length / 10)
- 
+  const itemsPerPage = Math.ceil(
+    itemsData === null ? 20 : itemsData.length / 10
+  );
+
   const [currentPage, setCurrentPage] = useState(1);
-  
+  const [showModal, setShowModal] = useState(false);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const items = itemsData?.slice(indexOfFirstItem, indexOfLastItem);
 
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   console.log(items);
+
+  const handleAddItemToServer = (item) => {
+    fetch("/cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
+    }).then(() => dispatch(addToCart(item)));
+  };
 
   return (
     <>
       <MainWrapper>
-      <Pagination  paginate={paginate}/>
+        <Pagination paginate={paginate} currentPage={currentPage} />
         {items ? (
           <Wrapper>
             {items.map((item) => {
@@ -63,19 +77,31 @@ const Homepage = () => {
                       {<Stock qty={item.numInStock}>{quantitiesMessage}</Stock>}
                       <span>{`Price: ${item.price}`}</span>
                     </ProductDetail>
-                    {item.numInStock !== 0 ? 
-                        <PurchaseBtn>Add to cart</PurchaseBtn> 
-                        : <DisabledBtn>Out of stock</DisabledBtn>}
+                    {item.numInStock !== 0 ? (
+                      <PurchaseBtn
+                        onClick={() => {
+                          handleAddItemToServer(item);
+                          setShowModal(true);
+                        }}
+                      >
+                        Add to cart
+                      </PurchaseBtn>
+                    ) : (
+                      <DisabledBtn>Out of stock</DisabledBtn>
+                    )}
                   </ProductDetailArea>
                 </Item>
               );
             })}
-            
+            <ModalAddedToCart
+              showModal={showModal}
+              setShowModal={setShowModal}
+            />
           </Wrapper>
         ) : (
           <Loading />
         )}
-        <Pagination  paginate={paginate}/>
+        <Pagination paginate={paginate} currentPage={currentPage} />
       </MainWrapper>
     </>
   );
@@ -111,7 +137,6 @@ const PurchaseBtn = styled.button`
   border: none;
   box-shadow: 2px 2px 10px rgba(161, 161, 161, 0.3);
   cursor: pointer;
- 
 `;
 const DisabledBtn = styled.div`
   padding: 10px 0px;

@@ -13,6 +13,17 @@ const CartItem = ({ itemObj }) => {
       window.location.reload();
     });
   };
+  const handleRemove = (id) => {
+    fetch("/cart", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    }).then(() => {
+      window.location.reload();
+    });
+  };
   return (
     <>
       <Wrapper>
@@ -39,7 +50,9 @@ const CartItem = ({ itemObj }) => {
                   }
                 />
               </QuantityDiv>
-              <Remove>Remove</Remove>
+              <Remove onClick={() => handleRemove(itemObj.item._id)}>
+                Remove
+              </Remove>
             </BottomWrapper>
           </DetailsWrapper>
         </MainWrapper>

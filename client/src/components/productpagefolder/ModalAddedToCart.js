@@ -1,57 +1,51 @@
 import React from "react";
 import styled from "styled-components";
-import { AiFillCheckCircle } from "react-icons/ai";
 import { IoMdCloseCircleOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import COLORS from "../../constants";
 
 const ModalAddedToCart = ({ showModal, setShowModal }) => {
-  const ModalBackground = styled.div`
-    position: absolute;
-    width: 100vw;
-    height: 110vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    display: ${showModal ? "flex" : "none"};
+  const FlexWrapper = styled.div`
+    display: flex
+    flex-direction: column;
     justify-content: center;
     align-items: center;
   `;
 
   const ModalContainer = styled.div`
     background-color: white;
-    height: auto;
-    width: 400px;
+    position: fixed;
+    width: 450px;
+    height: 100px;
+    bottom: 0;
+    right: 0;
     display: ${showModal ? "flex" : "none"};
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 30px;
+    justify-content: space-around;
+    margin: 30px;
+    box-shadow: 2px 2px 10px rgba(161, 161, 161, 0.3);
   `;
 
   const Title = styled.h3`
-    margin-bottom: 20px;
-  `;
-
-  const ConfirmedIcon = styled(AiFillCheckCircle)`
-    width: 60px;
-    height: 60px;
-    fill: ${COLORS.darkBlue};
-    margin-bottom: 20px;
+    margin-left: 20px;
   `;
 
   const GoToCart = styled(Link)`
-    font-size: 20px;
     text-decoration: none;
     background-color: ${COLORS.yellowgreen};
     color: white;
     border-radius: 7px;
-    padding: 20px;
     box-shadow: 2px 2px 10px rgba(161, 161, 161, 0.3);
+    text-align: center;
+    margin-right: 10px;
+    height: 50%;
+    display: flex;
+    align-items: center;
   `;
 
   const CloseContainer = styled.div`
     display: flex;
-    width: 100%;
-    justify-content: flex-end;
+    justify-content: flex-start;
   `;
 
   const CloseButton = styled.button`
@@ -59,11 +53,13 @@ const ModalAddedToCart = ({ showModal, setShowModal }) => {
     background: transparent;
     border-radius: 50px;
     cursor: pointer;
+    height: 50px;
+    width: 50px;
   `;
   return (
     <>
-      <ModalBackground>
-        <ModalContainer>
+      <ModalContainer>
+        <FlexWrapper>
           <CloseContainer>
             <CloseButton
               onClick={() => {
@@ -73,20 +69,19 @@ const ModalAddedToCart = ({ showModal, setShowModal }) => {
               <IoMdCloseCircleOutline />
             </CloseButton>
           </CloseContainer>
-          <Title>This item was added to your cart!</Title>
-          <ConfirmedIcon />
-          <GoToCart
-            to="/cart"
-            onClick={() => {
-              setTimeout(() => {
-                window.location.reload();
-              }, 500);
-            }}
-          >
-            Go to Cart
-          </GoToCart>
-        </ModalContainer>
-      </ModalBackground>
+        </FlexWrapper>
+        <Title>This item was added to your cart!</Title>
+        <GoToCart
+          to="/cart"
+          onClick={() => {
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+          }}
+        >
+          Go to Cart
+        </GoToCart>
+      </ModalContainer>
     </>
   );
 };
