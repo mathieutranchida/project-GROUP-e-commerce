@@ -12,6 +12,7 @@ const {
   getCart,
   addItemToCart,
   modifyCartQuantity,
+  deleteItem,
 } = require("./api-routes/cart");
 const {
   getAllAccounts,
@@ -82,6 +83,9 @@ express()
   .patch("/cart", (req, res) => {
     modifyCartQuantity(req, res);
   })
+
+  //Delete cart item
+  .delete("/cart", (req, res) => deleteItem(req, res))
 
   //ACCOUNTS ROUTES --------------------------------------
   //Get all accounts
