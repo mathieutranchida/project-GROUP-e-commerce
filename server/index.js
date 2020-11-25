@@ -7,7 +7,11 @@ const morgan = require("morgan");
 //API methods imports
 const { getAllItems, getItemById } = require("./api-routes/items");
 const { getAllCompanies, getCompanyById } = require("./api-routes/companies");
-const { createOrder, getAllOrders } = require("./api-routes/orders");
+const {
+  createOrder,
+  getAllOrders,
+  getOrderById,
+} = require("./api-routes/orders");
 const {
   getCart,
   addItemToCart,
@@ -71,6 +75,9 @@ express()
 
   //Get all orders
   .get("/orders", (req, res) => getAllOrders(req, res))
+
+  //Get order by id
+  .get("/orders/:id", (req, res) => getOrderById(req, res))
 
   //CART ROUTES
   //Get cart by customer name
