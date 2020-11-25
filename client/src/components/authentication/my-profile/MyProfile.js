@@ -43,7 +43,8 @@ const MyProfile = () => {
                 onClick={() => {
                   history.push("/");
                   document.location.reload();
-                  localStorage.setItem("isLoggedIn", false);
+                  localStorage.removeItem("isLoggedIn");
+                  localStorage.removeItem("email");
                   dispatch(logoutFromAccount());
                 }}
               >
