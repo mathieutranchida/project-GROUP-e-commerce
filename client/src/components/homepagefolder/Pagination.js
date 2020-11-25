@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import COLORS from '../../constants';
 
-function Pagination({paginate, currentPage}) {
-    const [barPosition, setBarPosition] = useState(0)
+function Pagination({paginate, currentPage, barBottom, barPosition, setBarPosition}) {
+    
 
     const itemsPerPage = 10;
     const pageNumbers = [];
@@ -19,7 +19,9 @@ function Pagination({paginate, currentPage}) {
     return (
         <Containter>
         <Wrapper>
+        { !barBottom && <Bar barPosition={barPosition}/>}
             <Ul>
+            
            {pageNumbers.map( number => {
                return (
                 <Li className={currentPage === number ? 'current' : ''}
@@ -33,7 +35,7 @@ function Pagination({paginate, currentPage}) {
            })}
            </Ul>
            
-            <Bar barPosition={barPosition}/>
+           { barBottom && <Bar barPosition={barPosition}/>}
         </Wrapper>
         </Containter>
     )
@@ -69,6 +71,7 @@ const Bar = styled.div`
     position: relative;
     left: ${props => props.barPosition}%;
     bottom: 0;
+   
     transition: 0.5s ease;
 `;
 

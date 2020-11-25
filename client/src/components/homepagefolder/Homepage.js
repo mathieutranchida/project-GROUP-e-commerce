@@ -16,6 +16,8 @@ const Homepage = () => {
   const itemsData = useSelector(
     (state) => state.items.items && state.items.items.data
   );
+
+
   const dispatch = useDispatch();
 
   const itemsPerPage = Math.ceil(
@@ -40,11 +42,16 @@ const Homepage = () => {
       body: JSON.stringify(item),
     }).then(() => dispatch(addToCart(item)));
   };
-
+  const [barPosition, setBarPosition] = useState(0)
   return (
     <>
       <MainWrapper>
-      <Pagination paginate={paginate} currentPage={currentPage} />
+      <Pagination
+             paginate={paginate} 
+             currentPage={currentPage} 
+             barBottom={true}
+              barPosition={barPosition} 
+              setBarPosition={setBarPosition}/>
         {items ? (
           <Wrapper>
             {items.map((item) => {
@@ -93,6 +100,7 @@ const Homepage = () => {
                 </Item>
               );
             })}
+            
             <ModalAddedToCart
               showModal={showModal}
               setShowModal={setShowModal}
@@ -101,7 +109,12 @@ const Homepage = () => {
         ) : (
           <Loading />
         )}
-        {/* <Pagination paginate={paginate} currentPage={currentPage} /> */}
+        <Pagination
+             paginate={paginate} 
+             currentPage={currentPage} 
+             barBottom={false}
+              barPosition={barPosition} 
+              setBarPosition={setBarPosition}/>
       </MainWrapper>
     </>
   );
