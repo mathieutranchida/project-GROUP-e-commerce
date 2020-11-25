@@ -4,12 +4,14 @@ import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions";
 import ModalAddedToCart from "./ModalAddedToCart";
+import COLORS from "../../constants";
 
 const ProductPage = () => {
   const itemId = useParams();
   const [singleItem, setSingleItem] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
+  const [canAdd, setCanAdd] = useState(true);
 
   useEffect(() => {
     fetch(`/items/${itemId.id}`, {
@@ -22,6 +24,9 @@ const ProductPage = () => {
       .then((data) => {
         console.log(data);
         setSingleItem(data);
+        if (data.data.numInStock <= 0) {
+          setCanAdd(false);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -82,14 +87,20 @@ const ProductPage = () => {
                 </DetailedInfoWrapper>
               </ProductDetailsWrapper>
             </Main>
-            <AddToCart
-              onClick={() => {
-                setShowModal(true);
-                handleAddItemToServer();
-              }}
-            >
-              Add to cart
-            </AddToCart>
+            {canAdd ? (
+              <AddToCart
+                disabled={!canAdd}
+                onClick={() => {
+                  setShowModal(true);
+                  handleAddItemToServer();
+                }}
+              >
+                Add to cart
+              </AddToCart>
+            ) : (
+              <DisabledBtn>Out of stock</DisabledBtn>
+            )}
+
             <ModalAddedToCart
               showModal={showModal}
               setShowModal={setShowModal}
@@ -208,6 +219,18 @@ const AddToCart = styled.button`
   width: 250px;
   text-align: center;
   margin-top: 25px;
+`;
+
+const DisabledBtn = styled.div`
+  width: 50%;
+  padding: 10px 0px;
+  font-family: "Poppins", sans-serif;
+  color: ${COLORS.black};
+  background-color: ${COLORS.grey};
+  border-radius: 5px;
+  border: none;
+  box-shadow: 2px 2px 10px rgba(161, 161, 161, 0.3);
+  text-align: center;
 `;
 
 export default ProductPage;
