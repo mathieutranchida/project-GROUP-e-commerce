@@ -132,6 +132,7 @@ const SearchBarComponent = () => {
 const Wrapper = styled.div`
   border: 3px yellowgreen solid;
   border-radius: 10px;
+  z-index: 2000;
 `;
 
 const WrapperInput = styled.div`

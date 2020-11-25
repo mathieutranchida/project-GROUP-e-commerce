@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
+import history from "../../../history";
+import {
+  updateAccountName,
+  updateAccountEmail,
+  updateAccountPassword,
+  updateAccountAddressLine1,
+  updateAccountAddressLine2,
+} from "../../../redux/actions";
 
 import COLORS from "../../../constants";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+
+  const newProfile = useSelector((state) => state.createUser);
+
+  const handleCreateProfile = () => {
+    console.log(newProfile);
+    fetch("/account", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProfile),
+    });
+  };
+
   return (
     <>
       <Wrapper>
@@ -11,26 +36,63 @@ const SignUp = () => {
           <Title>Sign up</Title>
           <InputDiv>
             <Type>Name *</Type>
-            <Input type="text" required />
+            <Input
+              type="text"
+              required
+              onChange={(e) => {
+                dispatch(updateAccountName(e.target.value));
+              }}
+            />
           </InputDiv>
           <InputDiv>
             <Type>Email *</Type>
-            <Input type="email" required />
+            <Input
+              type="email"
+              required
+              onChange={(e) => {
+                dispatch(updateAccountEmail(e.target.value));
+              }}
+            />
           </InputDiv>
           <InputDiv>
             <Type>Password *</Type>
-            <Input type="password" required />
-          </InputDiv>
-          <InputDiv>
-            <Type>Confirm password *</Type>
-            <Input type="password" required />
+            <Input
+              type="password"
+              required
+              onChange={(e) => {
+                dispatch(updateAccountPassword(e.target.value));
+              }}
+            />
           </InputDiv>
           <InputDiv>
             <Type>Address *</Type>
-            <Input type="address" required />
+            <Input
+              type="address"
+              required
+              onChange={(e) => {
+                dispatch(updateAccountAddressLine1(e.target.value));
+              }}
+            />
+          </InputDiv>
+          <InputDiv>
+            <Type>City *</Type>
+            <Input
+              type="address"
+              required
+              onChange={(e) => {
+                dispatch(updateAccountAddressLine2(e.target.value));
+              }}
+            />
           </InputDiv>
           <ButtonWrapper>
-            <Button>Sign up</Button>
+            <Button
+              onClick={(ev) => {
+                handleCreateProfile();
+                history.push("/login");
+              }}
+            >
+              Sign up
+            </Button>
           </ButtonWrapper>
         </LoginWrapper>
       </Wrapper>
