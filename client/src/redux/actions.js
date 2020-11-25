@@ -42,6 +42,32 @@ export const logoutFromAccount = () => ({
   type: "SET_BACK_TO_DEFAULT",
 });
 
+// Create account
+export const updateAccountName = (data) => ({
+  type: "UPDATE_ACCOUNT_NAME",
+  data,
+});
+
+export const updateAccountEmail = (data) => ({
+  type: "UPDATE_ACCOUNT_EMAIL",
+  data,
+});
+
+export const updateAccountPassword = (data) => ({
+  type: "UPDATE_ACCOUNT_PASSWORD",
+  data,
+});
+
+export const updateAccountAddressLine1 = (data) => ({
+  type: "UPDATE_ACCOUNT_ADDRESS_LINE_1",
+  data,
+});
+
+export const updateAccountAddressLine2 = (data) => ({
+  type: "UPDATE_ACCOUNT_ADDRESS_LINE_2",
+  data,
+});
+
 // SIDEBAR ----------------------------------------------
 // filter actions in the sidebar
 export const receiveSingleItemError = () => ({

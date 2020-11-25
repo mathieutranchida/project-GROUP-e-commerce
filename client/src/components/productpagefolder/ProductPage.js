@@ -129,6 +129,7 @@ const Main = styled.div`
 const ProductImage = styled.img`
   height: 300px;
   width: 300px;
+  margin-right: 20px;
 `;
 
 const ProductDetailsWrapper = styled.div``;

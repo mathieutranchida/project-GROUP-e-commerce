@@ -243,22 +243,19 @@ const ProceedPaymentButton = styled.button`
   margin-top: 50px;
   background-color: ${COLORS.yellowgreen};
   border-style: solid;
-  border-color: ${COLORS.yellowgreen}; 
+  border-color: ${COLORS.yellowgreen};
   border-width: 1px;
   border-radius: 7px;
-  height 50px;
+  height: 50px;
   color: white;
   cursor: pointer;
-  transiton: 0.2s;
+  transition: 0.2s;
   box-shadow: 0 0 10px;
-
-
 
   &:hover {
     background-color: white;
     color: black;
-      box-shadow: none;
-
+    box-shadow: none;
   }
 `;
 

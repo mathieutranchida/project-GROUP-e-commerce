@@ -5,5 +5,13 @@ import order from "./order-reducer";
 import currentUser from "./currentUser-reducer";
 import items from "./items-reducer";
 import singleItem from "./single-item-reducer";
+import createUser from "./createUser-reducer";
 
-export default combineReducers({ cart, order, currentUser, items, singleItem });
+export default combineReducers({
+  cart,
+  order,
+  currentUser,
+  items,
+  singleItem,
+  createUser,
+});

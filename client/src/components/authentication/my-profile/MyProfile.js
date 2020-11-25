@@ -72,7 +72,6 @@ const Wrapper = styled.div`
 
 const LoginWrapper = styled.div`
   background-color: ${COLORS.white};
-  width: 350px;
   padding: 15px 25px;
   box-shadow: 0px 0px 10px 0px ${COLORS.grey};
   border-radius: 15px;
