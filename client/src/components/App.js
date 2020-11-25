@@ -16,20 +16,30 @@ import useFetchAllItems from "../custom-hooks/useFetchAllItems";
 import useFetchUser from "../custom-hooks/useFetchUser";
 import ConfirmedOrder from "./cartfolder/ConfirmedOrder";
 
+import MobileHp from './homepagefolder/MobileHP'
+
+import useWindowsWidth from '../custom-hooks/useWindowWidth-hook';
+
 function App() {
   //Retrieve cart each time app re-renders. This way we keep cart at each rtefresh everywhere in the app
   useFetchCart();
   useFetchAllItems();
   useFetchUser();
+
+  const isMobile = useWindowsWidth();
+  
+  
   return (
     <>
       <BrowserRouter>
         <GlobalStyles />
         <Wrapper>
-          <Header />
+          {!isMobile && <Header /> }
           <Switch>
             <Route exact path="/">
-              <Homepage />
+              {/* <Homepage /> */}
+             
+              {isMobile ? <MobileHp/> : <Homepage/>}
             </Route>
             <Route path="/product/:id">
               <ProductPage />

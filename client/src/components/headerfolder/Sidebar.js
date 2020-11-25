@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { filterItems, showAllItems } from "../../redux/actions";
 
-const FilterDropdwon = ({ options, filter, items, onSelect }) => {
+const ProtoDropdown = ({className, options, filter, items, onSelect }) => {
   const dispatch = useDispatch();
   const [selection, setSelection] = useState(options[0].value);
   const selectAnother = (ev) => {
@@ -23,10 +23,12 @@ const FilterDropdwon = ({ options, filter, items, onSelect }) => {
     onSelect(false);
   };
 
+ 
+
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
+    <div style={{ display: "flex", flexDirection: "column"}} >
       <label>{`${options[0].name}`}</label>
-      <select value={selection} onChange={selectAnother}>
+      <select value={selection} onChange={selectAnother} className={className}>
         {options.map(function (item) {
           return <option key={item.value}>{`${item.name}`}</option>;
         })}
@@ -34,6 +36,15 @@ const FilterDropdwon = ({ options, filter, items, onSelect }) => {
     </div>
   );
 };
+
+
+
+const FilterDropdwon = styled(ProtoDropdown)`
+  &:hover{
+    cursor: pointer;
+
+}
+`;
 
 function Sidebar() {
   const [sidebar, setSidebar] = useState(false);
@@ -207,6 +218,10 @@ const ExitSidebar = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  &:hover{
+    cursor: pointer;
+
+}
 `;
 
 const navStyles = (isActive) => {
@@ -242,10 +257,15 @@ const NavMenuItems = styled.ul`
 
 const NavItem = styled.li`
   padding: 32px 0px 32px 0px;
+ 
 `;
 
 const ResetBtn = styled.button`
   padding: 10px;
+  &:hover{
+    cursor: pointer;
+
+}
  
 
 `;
