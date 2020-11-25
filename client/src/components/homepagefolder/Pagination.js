@@ -1,68 +1,93 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
+import COLORS from '../../constants';
 
-function Pagination({ paginate, currentPage }) {
-   const itemsPerPage = 10;
+function Pagination({paginate, currentPage}) {
+    const [barPosition, setBarPosition] = useState(0)
+
+    const itemsPerPage = 10;
     const pageNumbers = [];
+
 
     for (let i = 1; i <= itemsPerPage; i++) {
         pageNumbers.push(i);
       }
 
-    return (
-        <Wrapper>
-            <Layout>
-            {pageNumbers.map(number =>{
-                return (
-                    <PageNumber 
-                        onClick={() => paginate(number)} 
-                        key={number}
-                        className={currentPage === number ? 'current' : ''}
-                        >
-                            {number}
-                        </PageNumber>)
-            })}
 
-            </Layout>
+    
+
+    return (
+        <Containter>
+        <Wrapper>
+            <Ul>
+           {pageNumbers.map( number => {
+               return (
+                <Li className={currentPage === number ? 'current' : ''}
+                    onMouseOver={() => setBarPosition((number * 10) - 10)}
+                    onMouseOut={() => setBarPosition((currentPage * 10) - 10)}
+                    onClick={() => paginate(number)}>
+                    {number}
+                   
+                </Li>
+               )
+           })}
+           </Ul>
+           
+            <Bar barPosition={barPosition}/>
         </Wrapper>
+        </Containter>
     )
 }
 
 export default Pagination
 
+const Containter = styled.div`
+    display: flex;
+    justify-content: center;
+`;
+
 const Wrapper = styled.div`
-  text-align: center;
-  margin: 0px;
-  
+	width: 50vw;
+	height: 80px;
+	line-height: 80px;
+	background-color: white;
+    
+    
 `;
 
-const Layout = styled.div`
-    display: inline-block;
-	height: 40px;
-	//margin-top: 70px;
-	padding: 0 5px;
-	border-radius: 35px;
-	background-color: #eee;
+const Ul = styled.ul`
+    	display: flex;
+		padding: 0;
+		margin: 0;
+		box-shadow: 0 10px 20px 0 rgba(black, 0.25);
 `;
 
-const PageNumber = styled.a`
-    display: block;
-	padding: 0 15px;
-	float: left;
-	transition: 400ms ease;
-	color: #595959;
-	font-size: 20px;
-	letter-spacing: 0.1em;
-	line-height: 40px;
+const Bar = styled.div`
+    width: 10%;
+    background-color:${COLORS.yellowgreen};
+    height: 5px;
+    position: relative;
+    left: ${props => props.barPosition}%;
+    bottom: 0;
+    transition: 0.5s ease;
+`;
 
-    text-decoration: none;
-
-    &:hover,
-	&.current {
-		background-color:#86c023;
-		color: #fff;
+const Li = styled.li`
+    flex: 1;
+    list-style: none;
+    text-align: center;
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    transition: 0.5s ease;
+    cursor: pointer;
+    user-select: none;
+    &.current {
+		/* background-color:#86c023; */
+		color: ${COLORS.yellowgreen};
 	}
-
+    
 `;
+
 
 

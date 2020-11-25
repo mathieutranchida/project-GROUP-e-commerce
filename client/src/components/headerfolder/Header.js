@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn");
-  console.log(isLoggedIn);
 
   const cart = useSelector((state) => state.cart);
 
