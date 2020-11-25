@@ -44,7 +44,7 @@ const Homepage = () => {
   return (
     <>
       <MainWrapper>
-        <Pagination paginate={paginate} currentPage={currentPage} />
+      <Pagination paginate={paginate} currentPage={currentPage} />
         {items ? (
           <Wrapper>
             {items.map((item) => {
@@ -101,7 +101,7 @@ const Homepage = () => {
         ) : (
           <Loading />
         )}
-        <Pagination paginate={paginate} currentPage={currentPage} />
+        {/* <Pagination paginate={paginate} currentPage={currentPage} /> */}
       </MainWrapper>
     </>
   );
