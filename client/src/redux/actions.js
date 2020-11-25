@@ -38,6 +38,10 @@ export const receiveaSingleAccountError = () => ({
   type: "RECEIVE_SINGLE_ACCOUNT_ERROR",
 });
 
+export const logoutFromAccount = () => ({
+  type: "SET_BACK_TO_DEFAULT",
+});
+
 // SIDEBAR ----------------------------------------------
 // filter actions in the sidebar
 export const receiveSingleItemError = () => ({

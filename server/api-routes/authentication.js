@@ -17,7 +17,8 @@ const getAccountByEmail = (req, res) => {
     const accountFound = accounts.find(
       (element) => element.email === req.params.email
     );
-    checkIfFound(accountFound, "Account");
+    let isFound = checkIfFound(accountFound, "Account");
+    console.log(isFound);
     res.status(200).json({ status: 200, data: accountFound });
   } catch (error) {
     res.status(500).json({ status: 500, error: error.message });

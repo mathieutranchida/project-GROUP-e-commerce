@@ -1,5 +1,5 @@
 const initialState = {
-  account: null,
+  account: false,
   status: "idle",
   error: null,
 };
@@ -23,6 +23,14 @@ export default function currentUserReducer(state = initialState, action) {
       return {
         ...state,
         status: "email not found",
+      };
+    }
+    case "SET_BACK_TO_DEFAULT": {
+      return {
+        ...state,
+        account: false,
+        status: "idle",
+        error: null,
       };
     }
     default: {

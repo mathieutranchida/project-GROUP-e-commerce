@@ -135,9 +135,10 @@ const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
               />
             </ContainerInfo>
             <ProceedPaymentButton
-              onClick={() => {
+              onClick={(e) => {
                 handleCreateOrder();
                 history.push("/confirmed-order");
+                localStorage.setItem("orderId", order._id);
               }}
             >
               Proceed to Payment

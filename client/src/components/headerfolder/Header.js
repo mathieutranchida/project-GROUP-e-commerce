@@ -12,7 +12,10 @@ import { useSelector } from "react-redux";
 // Implement Search as a stretch
 
 const Header = () => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
   const cart = useSelector((state) => state.cart);
+
   return (
     <>
       <Wrapper>
@@ -44,7 +47,11 @@ const Header = () => {
               <div>Cart</div>
             </CartWrapper>
           </Link>
-          <Link to="/login">Login</Link>
+          {isLoggedIn ? (
+            <Link to="/my-profile">My profile</Link>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </Nav>
       </Wrapper>
     </>

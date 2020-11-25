@@ -42,4 +42,8 @@ console.log(
  formatMoney ( addCheddar(0,30.342141 ))
 )
 
+console.log(
+    addCheddar(12.32, 87)
+)
+
 export default Money;

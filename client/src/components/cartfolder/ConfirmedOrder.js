@@ -4,33 +4,48 @@ import styled from "styled-components";
 import COLORS from "../../constants";
 
 const ConfirmedOrder = () => {
-  const order = useSelector((state) => state.order);
+  const [order, setorder] = React.useState({});
+  React.useEffect(() => {
+    const id = localStorage.getItem("orderId");
+    fetch(`/orders/${id}`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((json) => {
+        setorder(json.data);
+      });
+  }, []);
+
   return (
     <>
-      <MainContainer>
-        <MessageConfirmed>Your order has been confirmed!</MessageConfirmed>
-        <OrderConfirmed>
-          <InfoContainer>
-            <Label>Order #: </Label>
-            <Info>{order._id}</Info>
-          </InfoContainer>
-          <InfoContainer>
-            <Label>Customer Name: </Label>
-            <Info>{order.customer_name}</Info>
-          </InfoContainer>
-          <InfoContainer>
-            <Label>Shipping Address: </Label>
-            <Info>{order.shipping_address}</Info>
-          </InfoContainer>
-          <InfoContainer>
-            <Label>Number of Items:</Label>
-          </InfoContainer>
-          <Line />
-          <InfoContainer>
-            <Label>Total Price:</Label>
-          </InfoContainer>
-        </OrderConfirmed>
-      </MainContainer>
+      {order !== {} && (
+        <MainContainer>
+          <MessageConfirmed>Your order has been confirmed!</MessageConfirmed>
+          <OrderConfirmed>
+            <InfoContainer>
+              <Label>Order #: </Label>
+              <Info>{order._id}</Info>
+            </InfoContainer>
+            <InfoContainer>
+              <Label>Customer Name: </Label>
+              <Info>{order.customer_name}</Info>
+            </InfoContainer>
+            <InfoContainer>
+              <Label>Shipping Address: </Label>
+              <Info>{order.shipping_address}</Info>
+            </InfoContainer>
+            <InfoContainer>
+              <Label>Number of Items:</Label>
+              <Info>{order.total_quantity}</Info>
+            </InfoContainer>
+            <Line />
+            <InfoContainer>
+              <Label>Total Price:</Label>
+              <Info>${order.total_price}</Info>
+            </InfoContainer>
+          </OrderConfirmed>
+        </MainContainer>
+      )}
     </>
   );
 };
@@ -51,7 +66,7 @@ const OrderConfirmed = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${COLORS.white};
-  height: 500px;
+  height: auto;
   width: 500px;
   border-radius: 7px;
   padding 20px 50px 20px;
@@ -60,6 +75,7 @@ const OrderConfirmed = styled.div`
 
 const InfoContainer = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
 
 const Label = styled.h2`
@@ -69,6 +85,7 @@ const Label = styled.h2`
 const Info = styled.h2`
   font-weight: 200;
   color: grey;
+  text-align: right;
 `;
 
 const Line = styled.hr`
