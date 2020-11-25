@@ -85,7 +85,6 @@ const ProductPage = () => {
             <AddToCart
               onClick={() => {
                 setShowModal(true);
-
                 handleAddItemToServer();
               }}
             >
