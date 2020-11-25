@@ -11,6 +11,8 @@ import SearchBarComponent from "./SearchBar";
 // Implement Search as a stretch
 
 const Header = () => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+  console.log(isLoggedIn);
   return (
     <>
       <Wrapper>
@@ -43,7 +45,11 @@ const Header = () => {
               <div>Cart</div>
             </CartWrapper>
           </Link>
-          <Link to="/login">Login</Link>
+          {isLoggedIn ? (
+            <Link to="/my-profile">My profile</Link>
+          ) : (
+            <Link to="/login">Login</Link>
+          )}
         </Nav>
       </Wrapper>
     </>

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   requestSingleAccount,
@@ -10,21 +10,27 @@ import {
 const useFetchUser = () => {
   const dispatch = useDispatch();
 
+  const email = useSelector(
+    (state) => state.currentUser.account && state.currentUser.account.email
+  );
+
+  console.log(email);
+
   useEffect(() => {
-    const isLoggedIn = localStorage.getItem("isLoggedin");
+    const isLoggedIn = localStorage.getItem("isLoggedIn");
     if (isLoggedIn === "true") {
       dispatch(requestSingleAccount());
-      fetch("/account/mt@gmail.com", {
+      fetch(`/account/${email}`, {
         method: "GET",
         headers: {
-          "Content-Type": "application.json",
+          "Content-Type": "application/json",
         },
       })
         .then((res) => res.json())
         .then((data) => {
           console.log(data);
           dispatch(receiveSingleAccount(data.data));
-          localStorage.setItem("isLoggedin", true);
+          localStorage.setItem("isLoggedIn", true);
           localStorage.setItem("email", data.data.email);
         })
         .catch((err) => {

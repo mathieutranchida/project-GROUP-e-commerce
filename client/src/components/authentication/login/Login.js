@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 
 import COLORS from "../../../constants";
 import { useDispatch } from "react-redux";
+import history from "../../../history";
 
 import {
   requestSingleAccount,
@@ -19,17 +20,23 @@ const Login = () => {
 
   const handleLogin = () => {
     dispatch(requestSingleAccount());
+    console.log({ email });
     fetch(`/account/${email}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application.json",
+        "Content-Type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        dispatch(receiveSingleAccount());
-        localStorage.setItem("isLoggedin", true);
+        if (data.status === 200) {
+          console.log(data);
+          dispatch(receiveSingleAccount(data.data));
+          localStorage.setItem("isLoggedIn", true);
+          history.push("/");
+        } else {
+          dispatch(receiveaSingleAccountError());
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -64,7 +71,13 @@ const Login = () => {
           </InputDiv>
           <SignUp to="/sign-up">Create an account</SignUp>
           <ButtonWrapper>
-            <Button onClick={handleLogin}>Login</Button>
+            <Button
+              onClick={() => {
+                handleLogin();
+              }}
+            >
+              Login
+            </Button>
           </ButtonWrapper>
         </LoginWrapper>
       </Wrapper>
