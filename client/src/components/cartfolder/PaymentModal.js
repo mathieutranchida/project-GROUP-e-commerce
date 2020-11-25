@@ -12,6 +12,7 @@ import {
   updateOrderNameOnCard,
   updateOrderShippingAddress,
 } from "../../redux/actions";
+import history from "../../history";
 
 const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
   const dispatch = useDispatch();
@@ -133,7 +134,12 @@ const PaymentModal = ({ cart, modalOpen, setModalOpen }) => {
                 }
               />
             </ContainerInfo>
-            <ProceedPaymentButton onClick={handleCreateOrder}>
+            <ProceedPaymentButton
+              onClick={() => {
+                handleCreateOrder();
+                history.push("/confirmed-order");
+              }}
+            >
               Proceed to Payment
             </ProceedPaymentButton>
           </ContentContainer>
