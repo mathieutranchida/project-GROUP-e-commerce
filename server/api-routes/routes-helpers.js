@@ -97,10 +97,31 @@ const toggleQuantity = (id, quantity) => {
   }
 };
 
+//Remove item from cart
+
+const removeItemFromCart = (id) => {
+  const itemFound = cart.items.find((itemObj) => itemObj.item._id === id);
+  console.log(itemFound);
+
+  if (itemFound) {
+    cart.items.forEach((item, index) => {
+      if (item.item._id === itemFound.item._id) {
+        //Remove item
+        cart.number_of_items -= cart.items[index].quantity;
+        cart.total_price -=
+          cart.items[index].quantity *
+          parseFloat(cart.items[index].item.price.substring(1));
+        cart.items.splice(index, 1);
+      }
+    });
+  }
+};
+
 module.exports = {
   simulateProblems,
   checkIfFound,
   decrementQuantity,
   incrementCart,
   toggleQuantity,
+  removeItemFromCart,
 };

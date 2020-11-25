@@ -3,6 +3,7 @@ const cart = require("../data/cart.json");
 const {
   incrementCart,
   toggleQuantity,
+  removeItemFromCart,
 } = require("../api-routes/routes-helpers");
 
 // Get the cart
@@ -40,8 +41,19 @@ const modifyCartQuantity = (req, res) => {
   }
 };
 
+//Delete item from cart
+const deleteItem = (req, res) => {
+  try {
+    const itemID = req.body.id;
+    removeItemFromCart(itemID);
+    res.status(200).json({ status: 200, data: itemID });
+  } catch (error) {
+    res.status(500).json({ status: 200, error: error.message });
+  }
+};
 module.exports = {
   getCart,
   addItemToCart,
   modifyCartQuantity,
+  deleteItem,
 };
